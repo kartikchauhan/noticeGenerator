@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNoticesTable extends Migration
+class CreateBranchesAvailableTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,12 @@ class CreateNoticesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notices', function (Blueprint $table) {
+        Schema::create('branchesAvailable', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('branch');
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -25,6 +27,6 @@ class CreateNoticesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('notices');
+        Schema::drop('branchesAvailable');
     }
 }
