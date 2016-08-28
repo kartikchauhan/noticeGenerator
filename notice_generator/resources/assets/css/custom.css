@@ -1,0 +1,22 @@
+.image-holder
+{
+	border-radius: 5%;
+	border: 8px;
+	border-color: gray;
+	border-style: dashed;	
+	margin-top:50px;
+	margin-bottom: 50px;
+	height:400px;
+}
+
+.image-holder-text
+{
+	line-height: 50px;
+	font-size: 30px;
+	text-align:center;
+}
+
+#image-holder-text-place-your
+{
+	margin-top: 30px;
+}

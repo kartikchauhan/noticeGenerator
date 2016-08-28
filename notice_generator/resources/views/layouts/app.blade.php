@@ -15,6 +15,7 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../resources/assets/css/custom.css" />
     <style>
         body {
             font-family: 'Lato';

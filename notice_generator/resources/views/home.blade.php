@@ -44,6 +44,30 @@
             </select>
         </div>      
     </div>
+
+    <div class="row">
+        <div id="image-holder" class="col-md-8 col-md-offset-2 image-holder">
+            <div class="row">
+                <div class="image-holder-text" id="image-holder-text-place-your">
+                    Place Your
+                </div>
+            </div>
+            <div class="row">
+                <div class="image-holder-text">
+                    File
+                </div>
+            </div>
+            <div class="row">
+                <div class="image-holder-text">
+                    Here
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">        
+        <button type="button" class="btn btn-success col-md-2 col-md-offset-5"> Upload </button>
+    </div>
 </div>
 
 
