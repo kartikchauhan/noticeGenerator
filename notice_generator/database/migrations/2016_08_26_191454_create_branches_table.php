@@ -15,11 +15,14 @@ class CreateBranchesTable extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('notice_id')->unsigned();
+            $table->integer('branch_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('branches', function (Blueprint $table) {
+            $table->foreign('branch_id')->references('id')->on('branchesAvailable');
             $table->foreign('notice_id')->references('id')->on('notices');
+
         });
     }
 

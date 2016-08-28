@@ -15,10 +15,12 @@ class CreateSectionsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('notice_id')->unsigned();
+            $table->integer('section_id')->unsigned();
             $table->timestamps();
         });
 
-        Schema::table('sections', function(Blueprint $table){
+        Schema::table('sections', function (Blueprint $table) {        
+            $table->foreign('section_id')->references('id')->on('sectionsAvailable');
             $table->foreign('notice_id')->references('id')->on('notices');
         });
     }

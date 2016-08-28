@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\coursesAvailable;
+use App\branchesAvailable;
+use App\yearsAvailable;
+use App\sectionsAvailable;
 
 class HomeController extends Controller
 {
@@ -24,6 +28,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        try
+        {
+            $courses = coursesAvailable::getCourses();
+            $branches = branchesAvailable::getBranches();
+            $years = yearsAvailable::getYears();
+            $sections = sectionsAvailable::getSections();
+            return view('home', compact(array('courses', 'branches', 'years', 'sections')));    
+        }
+        catch(Exception $e)
+        {
+            return ("something went wrong");
+        }
+        
     }
 }
