@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDepartmentToUsersTable extends Migration
+class AddAdditionaldetailsToNotices extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class AddDepartmentToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('department');
+        Schema::table('notices', function (Blueprint $table) {
+            $table->string('additional_details');
         });
     }
 
@@ -24,8 +24,8 @@ class AddDepartmentToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('department');
+        Schema::table('notices', function (Blueprint $table) {
+            $table->dropColumn('additional_details');
         });
     }
 }

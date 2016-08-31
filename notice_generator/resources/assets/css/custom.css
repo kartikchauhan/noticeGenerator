@@ -4,9 +4,10 @@
 	border: 8px;
 	border-color: gray;
 	border-style: dashed;	
-	margin-top:50px;
-	margin-bottom: 50px;
-	height:400px;
+	height:70%;
+	margin-top:20px;
+	margin-bottom: 20px;
+
 }
 
 .image-holder-text
@@ -19,4 +20,19 @@
 #image-holder-text-place-your
 {
 	margin-top: 30px;
+}
+
+/*#form-container
+{
+	height:500px;
+	margin:auto;
+	width:60%;
+	background-color: #D3D3D3;
+	border:10px;
+	border-radius:4%;
+}
+*/
+.subject
+{
+	margin-top: 20px;
 }
