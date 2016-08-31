@@ -13,7 +13,7 @@ use App\noticesAlter;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
-use \File;
+// use Illuminate\Support\Facades\File;
 
 class HomeController extends Controller
 {
@@ -51,13 +51,28 @@ class HomeController extends Controller
 
     public function uploadImages(Request $request)
     {
-        $file = $request->file;
-        if(File::isFile($file))
+       
+        $files = Input::file('file');                           
         {
-            $file = 'uploads/Basic_English_Usage_[Oxford].pdf';
-            $headers = array('Content-type: application/pdf');
-            return Response::download($file, 'Basic_English_Usage_[Oxford].pdf', $headers);
+            $notice_subject = $request->subject;
+            $additional_details = $request->additional_details;
+            foreach($files as $file)
+            {   
+                $notice = new noticesAlter();
+                $notice->notice_subject = $notice_subject;
+                $notice->additional_details = $additional_details;
+                $notice->filename = $file->getClientOriginalName();                
+                $file->move('uploads', $file->getClientOriginalName());
+                $notice->save();
+
+            }
         }
+        // if(File::isFile($file))
+        // {
+        //     // $file = 'uploads/Basic_English_Usage_[Oxford].pdf';
+        //     // $headers = array('Content-type: application/pdf');
+        //     // return Response::download($file, 'Basic_English_Usage_[Oxford].pdf', $headers);
+        // }
         // try
         // {
         //     $this->validate($request,[

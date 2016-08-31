@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNoticesAlterTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,18 @@ class CreateNoticesAlterTable extends Migration
      */
     public function up()
     {
-        Schema::create('noticesAlter', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('notice_subject');
-            $table->string('additional_details');
+            $table->integer('notice_id')->unsigned();
+            $table->string('filename');
             $table->timestamps();
         });
+
+        Schema::table('files', function (Blueprint $table) {
+            $table->foreign('notice_id')->references('id')->on('noticesAlter');
+        });
+
+
     }
 
     /**
@@ -27,6 +33,6 @@ class CreateNoticesAlterTable extends Migration
      */
     public function down()
     {
-        Schema::drop('noticesAlter');
+        Schema::drop('files');
     }
 }

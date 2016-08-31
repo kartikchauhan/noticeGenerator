@@ -48,7 +48,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-2 col-md-offset-5">
-                    <input type="file" name="file" id="file">                
+                    <input type="file" name="file[]" id="file" multiple />                
                 </div>
             </div>
             <div class="form-group">
