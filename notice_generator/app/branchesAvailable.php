@@ -14,9 +14,18 @@ class branchesAvailable extends Model
     	'branch',
     ];
 
+    public function noticesAlter()
+    {
+        // Actual relationship is on to many, problem in making pivot table for one to many relationship
+        return $this->belongsToMany('App\noticesAlter', 'branchesavailable_noticesalter', 'branch_id', 'notice_id')
+        ->withTimestamps(); 
+    }
+
     public static function getBranches()
     {
     	return DB::table('branchesavailable')
     			->get();
     }
+
+
 }

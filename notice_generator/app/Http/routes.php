@@ -19,4 +19,7 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
-Route::post('/home', 'HomeController@uploadImages');
+Route::post('/home', 'HomeController@createNotice');
+
+Route::get('search', 'SearchController@search');
+Route::post('search', 'SearchController@getNames');

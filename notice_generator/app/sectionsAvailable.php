@@ -14,6 +14,13 @@ class sectionsAvailable extends Model
     'section'
     ];
 
+    public function noticesAlter()
+    {
+        // Actual relationship is on to many, problem in making pivot table for one to many relationship
+        return $this->belongsToMany('App\noticesAlter', 'sectionsavailable_noticesalter', 'section_id', 'notice_id')
+        ->withTimestamps(); 
+    }
+
     public static function getSections()
     {
     	return DB::table('sectionsavailable')

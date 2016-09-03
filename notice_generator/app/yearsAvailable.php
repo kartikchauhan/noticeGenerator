@@ -14,6 +14,13 @@ class yearsAvailable extends Model
     'year',
     ];
 
+    public function noticesAlter()
+    {
+        // Actual relationship is on to many, problem in making pivot table for one to many relationship
+        return $this->belongsToMany('App\noticesAlter', 'yearsavailable_noticesalter', 'year_id', 'notice_id')
+        ->withTimestamps(); 
+    }
+
     public static function getYears()
     {
     	return DB::table('yearsavailable')

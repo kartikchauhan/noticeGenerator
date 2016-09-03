@@ -14,11 +14,17 @@ class coursesAvailable extends Model
     	'course',
     ];
 
+    public function noticesAlter()
+    {
+        // Actual relationship is on to many, problem in making pivot table for one to many relationship
+        return $this->belongsToMany('App\noticesAlter', 'coursesavailable_noticesalter', 'course_id', 'notice_id')
+        ->withTimestamps(); 
+    }
+
     public static function getCourses()
     {
     	return DB::table('coursesavailable')
     			->get();
     }
-
 
 }
