@@ -43,13 +43,22 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $json = [];
         try
         {
             $courses = coursesAvailable::getCourses();
             $branches = branchesAvailable::getBranches();
             $years = yearsAvailable::getYears();
             $sections = sectionsAvailable::getSections();
-            return view('home', compact(array('courses', 'branches', 'years', 'sections')));    
+
+            $last_notice = noticesAlter::orderBy('created_at', 'desc')->first();
+
+            $courses_for_last_notice = $last_notice->Courses()->get();   
+            $branches_for_last_notice = $last_notice->Branches()->get();   
+            $years_for_last_notice = $last_notice->Years()->get();   
+            $sections_for_last_notice = $last_notice->sections()->get(); 
+
+            return view('home', compact(array('courses', 'branches', 'years', 'sections', 'last_notice', 'courses_for_last_notice', 'branches_for_last_notice', 'years_for_last_notice', 'sections_for_last_notice')));    
         }
         catch(Exception $e)
         {
@@ -57,6 +66,32 @@ class HomeController extends Controller
         }
         
     }
+            // code for retrieving courses starts fromm here
+                //getting the last 3 records from the database
+                                // $last_three_notices = noticesAlter::orderBy('created_at', 'desc')->select('id')->take(3)->get(); 
+                                // dd($last_three_notices);
+
+                                // $last_three_notices_array = $notices->toArray();
+                                // $notices_ids_array = [];
+
+                                // foreach($last_three_notices_array as $last_three_notices_index)
+                                // {
+                                //     array_push($notices_ids_array, $last_three_notices_index['id']);
+                                // }
+
+                                // foreach($notices_ids_array as $notices_id)
+                                // {
+                                //     var_dump($notices_id);
+
+                                //     $courses_with_notice_ids = noticesAlter::find($notices_id);
+                                //     $c = $courses_with_notice_ids->Courses()->get();
+                                //     foreach($c as $co)
+                                //     {
+                                //         var_dump($co->course);
+                                //     }                
+                                // }            
+            // code for retrieving courses ends here
+            
 
     public function createNotice(Request $request)
     {     
@@ -64,6 +99,19 @@ class HomeController extends Controller
 
         try
         {
+            // code for ajax filters starts from here
+                // $courses = $request->courses;
+                // $branches = coursesAvailable::find(1)->Branches()->get();
+                // $json['branches'] = $branches;
+                // foreach($courses as $course)
+                // {
+                //     $getCourse = coursesAvailable::find($course);                
+                //     $json['status'] = 0;
+                //     $branches = $getCourse->Branches()->get();
+                //     $json['branches'] = $branches;
+                // }
+            // code for ajax filters ends here
+            
             $addNotice = new noticesAlter();
             $addNotice->notice_subject = $request->subject;
             $addNotice->additional_details = $request->additional_details;
@@ -87,7 +135,18 @@ class HomeController extends Controller
 
             $addSection = sectionsAvailable::find($sections);
             $notice->sections()->attach($sections);
+            $files = Input::file('file');
 
+            if($files[0] != '')
+            {
+                foreach($files as $file)
+                {
+                    $addFile = new files(['filename' => $file->getClientOriginalName()]);
+                    $file->move('uploads', $file->getClientOriginalName());
+                    $notice->Files()->save($addFile);
+                }
+            }
+            
             $json['message'] = 'added successfully';
 
          }   
@@ -113,95 +172,15 @@ class HomeController extends Controller
         //     }
         // }
 
-        // $courses = $request->courses;
-        // if($courses[0]!='')
-        // {
-        //     foreach($courses as $course)
-        //     {
-        //         $addCourse = new courses();
-        //         $course_id = coursesAvailable::find($course);
-        //         $addCourse->notice_id = $notice->id;
-        //         $addCourse->course_id = $course_id->id;
-        //         $addCourse->save();
-        //     }
-        // }
-
-
-        // $branches = $request->branches;
-        // if($branches[0]!='')
-        // {
-        //     foreach($branches as $branch)
-        //     {
-        //         $addBranch = new branches();
-        //         $addBranch->notice_id = $notice->id;
-        //         $addBranch->branch_id = $branch;
-        //         $addBranch->save();
-        //     }
-        // }
-
-        // $years = $request->years;
-        // if($years[0]!='')
-        // {
-        //     foreach($years as $year)
-        //     {
-        //         $addYear = new years();
-        //         $addYear->notice_id = $notice->id;
-        //         $addYear->year_id = $year;
-        //         $addYear->save();
-        //     }
-        // }
-
-        // $sections = $request->sections;
-        // if($sections[0]!='')
-        // {
-        //     foreach($sections as $section)
-        //     {
-        //         $addSection = new sections();
-        //         $addSection->notice_id = $notice->id;
-        //         $addSection->section_id = $section;
-        //         $addSection->save();
-        //     }
-        // }
+        
 
     }
 
 
 }
-        // $files = Input::file('file');                           
-        // {
-        //     $notice_subject = $request->subject;
-        //     $additional_details = $request->additional_details;
-        //     foreach($files as $file)
-        //     {   
-        //         $notice = new noticesAlter();
-        //         $notice->notice_subject = $notice_subject;
-        //         $notice->additional_details = $additional_details;
-        //         $notice->filename = $file->getClientOriginalName();                
-        //         $file->move('uploads', $file->getClientOriginalName());
-        //         $notice->save();
-
-        //     }
-        // }
-    // }
-
-    // public function uploadImages(Request $request)
-    // {
        
-    //     $files = Input::file('file');                           
-    //     {
-    //         $notice_subject = $request->subject;
-    //         $additional_details = $request->additional_details;
-    //         foreach($files as $file)
-    //         {   
-    //             $notice = new noticesAlter();
-    //             $notice->notice_subject = $notice_subject;
-    //             $notice->additional_details = $additional_details;
-    //             $notice->filename = $file->getClientOriginalName();                
-    //             $file->move('uploads', $file->getClientOriginalName());
-    //             $notice->save();
 
-    //         }
-    //     }
+   
         // if(File::isFile($file))
         // {
         //     // $file = 'uploads/Basic_English_Usage_[Oxford].pdf';

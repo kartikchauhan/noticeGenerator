@@ -21,6 +21,11 @@ class coursesAvailable extends Model
         ->withTimestamps(); 
     }
 
+    public function Branches()
+    {
+        return $this->belongsToMany('App\coursesAvailable', 'branch_course', 'course_id', 'branch_id');
+    }
+
     public static function getCourses()
     {
     	return DB::table('coursesavailable')

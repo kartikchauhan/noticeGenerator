@@ -58,10 +58,7 @@ function sendData(request)
 		'data': request
 	})
 	.done(function(response){
-		if(response.status==0)
-		{
-			console.log('ok');
-		}
+		console.log(response.branches);
 		
 	});
 

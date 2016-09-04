@@ -4,22 +4,21 @@
 
 <div class="container">    
 
-    
-    <div class="jumbotron">
+    <div class="jumbotron col-md-8">
 
-        <form class="form-horizontal" action="{{ URL('home') }}" file=true enctype="multipart/form-data" method="post" >                    
+        <form class="form-horizontal" action="{{ URL('home') }}" file=true enctype="multipart/form-data" method="post" >                        
+
+             <div class="row">
     
-            <div class="row">
-    
-                <div class="col-md-2 col-md-offset-2">
+                <div class="col-md-2">
                     <select id="courses" multiple="multiple" name="courses[]">
                         @foreach($courses as $course)
                             <option value="{{ $course->id }}">{{ $course->course }}</option>
-                        @endforeach                
+                        @endforeach        
                     </select>
                 </div>        
 
-                <div class="col-md-2">
+                <div class="col-md-2 col-md-offset-1">
                     <select id="branches" multiple="multiple" name="branches[]">
                         @foreach($branches as $branch)
                             <option value="{{ $branch->id }}">{{ $branch->branch }}</option>
@@ -27,7 +26,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2 col-md-offset-1">
                     <select id="years" multiple="multiple" name="years[]">
                         @foreach($years as $year)
                             <option value="{{ $year->id }}">{{ $year->year }}</option>
@@ -35,14 +34,14 @@
                     </select>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2 col-md-offset-1">
                     <select id="sections" multiple="multiple" name="sections[]">
                         @foreach($sections as $section)
                             <option value="{{ $section->id }}">{{ $section->section }}</option>
-                        @endforeach
+                        @endforeach                        
                     </select>
                 </div>
-            
+    
             </div>
             
             <div class="form-group">
@@ -64,8 +63,8 @@
                    <textarea class="form-control" rows="5" id="additional-details" name="additional_details" placeholder="Enter Any Additional Detail"></textarea>
                 </div>
             </div>            
-
             <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token" />
+                        <!-- csrf_token should be here for the form -->
             
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-4">
@@ -89,7 +88,39 @@
                 </ul>
             </div>
         @endif
+
     </div>
+
+    <div class="jumbotron col-md-3 col-md-offset-1">
+        <h4>Last Notice Details</h4>
+
+        <h5>{{ $last_notice->notice_subject }}</h5>
+
+        <select id="last_notice_courses" multiple="multiple" name="last_notice_courses[]">
+            @foreach($courses_for_last_notice as $courses)
+                <option value="{{ $courses->id }}">{{ $courses->course }}</option>
+            @endforeach
+        </select> 
+
+        <select id="last_notice_branches" multiple="multiple" name="last_notice_branches[]">
+            @foreach($branches_for_last_notice as $branches)
+                <option value="{{ $branches->id }}">{{ $branches->branch }}</option>
+            @endforeach
+        </select> 
+
+        <select id="last_notice_years" multiple="multiple" name="last_notice_years[]">
+            @foreach($years_for_last_notice as $years)
+                <option value="{{ $years->id }}">{{ $years->year }}</option>
+            @endforeach
+        </select> 
+
+        <select id="last_notice_sections" multiple="multiple" name="last_notice_sections[]">
+            @foreach($sections_for_last_notice as $sections)
+                <option value="{{ $sections->id }}">{{ $sections->section }}</option>
+            @endforeach
+        </select>       
+    </div>
+
 </div>
 
             
@@ -100,7 +131,7 @@
 
 <script type="text/javascript">
         $(function () {
-            $('#courses, #branches, #years, #sections').multiselect({
+            $('#courses, #branches, #years, #sections, #last_notice_courses, #last_notice_branches, #last_notice_years, #last_notice_sections').multiselect({
                 includeSelectAllOption: true
             });
             // $('#btnSelected').click(function () {
