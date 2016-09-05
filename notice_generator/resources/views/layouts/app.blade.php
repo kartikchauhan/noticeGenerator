@@ -10,11 +10,13 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+    <link href="../resources/assets/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="../resources/assets/css/custom.css" />
     <!-- <link rel="stylesheet" href="../resources/assets/css/dropzone.css"> -->
     <style>
@@ -39,6 +41,12 @@
     <!-- 
     <script src="../resources/assets/js/dropzone.js" type="text/javascript"></script>
      -->
+     <script src="../resources/assets/js/last-notice-details.js" type="text/javascript"></script>
+     <script src="../resources/assets/js/jquery.knob.js"></script>
+     <script src="../resources/assets/js/jquery.ui.widget.js"></script>
+     <script src="../resources/assets/js/jquery.fileupload.js"></script>
+     <script src="../resources/assets/js/script.js"></script>
+     
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">

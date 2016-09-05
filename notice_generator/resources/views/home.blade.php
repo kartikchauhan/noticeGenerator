@@ -11,7 +11,7 @@
              <div class="row">
     
                 <div class="col-md-2">
-                    <select id="courses" multiple="multiple" name="courses[]">
+                    <select id="courses" multiple="multiple" name="courses[]" class="courses">
                         @foreach($courses as $course)
                             <option value="{{ $course->id }}">{{ $course->course }}</option>
                         @endforeach        
@@ -19,7 +19,7 @@
                 </div>        
 
                 <div class="col-md-2 col-md-offset-1">
-                    <select id="branches" multiple="multiple" name="branches[]">
+                    <select id="branches" multiple="multiple" name="branches[]" class="branches">
                         @foreach($branches as $branch)
                             <option value="{{ $branch->id }}">{{ $branch->branch }}</option>
                         @endforeach
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="col-md-2 col-md-offset-1">
-                    <select id="years" multiple="multiple" name="years[]">
+                    <select id="years" multiple="multiple" name="years[]" class="years">
                         @foreach($years as $year)
                             <option value="{{ $year->id }}">{{ $year->year }}</option>
                         @endforeach
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="col-md-2 col-md-offset-1">
-                    <select id="sections" multiple="multiple" name="sections[]">
+                    <select id="sections" multiple="multiple" name="sections[]" class="sections">
                         @foreach($sections as $section)
                             <option value="{{ $section->id }}">{{ $section->section }}</option>
                         @endforeach                        
@@ -51,11 +51,20 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div id="upload">
+                <div id="drop">Drop Here
+                <a>Browse</a>
+                <input type="file" name="upl" multiple />
+                </div>
+            <ul>
+                <!-- The file uploads will be shown here -->
+            </ul>
+            </div>
+            <!-- <div class="form-group">
                 <div class="col-md-2 col-md-offset-5">
                     <input type="file" name="file[]" id="file" class="file" multiple />                
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label class="control-label col-md-2 col-md-offset-2" for="additional-details">Additional Data</label>
@@ -91,34 +100,42 @@
 
     </div>
 
-    <div class="jumbotron col-md-3 col-md-offset-1">
+    <div class="jumbotron col-md-3 col-md-offset-1">        
+
         <h4>Last Notice Details</h4>
 
-        <h5>{{ $last_notice->notice_subject }}</h5>
+        <h5>Subject- {{ $last_notice->notice_subject }}</h5>
 
-        <select id="last_notice_courses" multiple="multiple" name="last_notice_courses[]">
+        <select id="last_notice_courses" multiple="multiple" name="last_notice_courses[]" class="last_notice_details_courses">
             @foreach($courses_for_last_notice as $courses)
                 <option value="{{ $courses->id }}">{{ $courses->course }}</option>
             @endforeach
         </select> 
 
-        <select id="last_notice_branches" multiple="multiple" name="last_notice_branches[]">
+        <select id="last_notice_branches" multiple="multiple" name="last_notice_branches[]" class="last_notice_details_branches">
             @foreach($branches_for_last_notice as $branches)
                 <option value="{{ $branches->id }}">{{ $branches->branch }}</option>
             @endforeach
         </select> 
 
-        <select id="last_notice_years" multiple="multiple" name="last_notice_years[]">
+        <select id="last_notice_years" multiple="multiple" name="last_notice_years[]" class="last_notice_details_years">
             @foreach($years_for_last_notice as $years)
                 <option value="{{ $years->id }}">{{ $years->year }}</option>
             @endforeach
         </select> 
 
-        <select id="last_notice_sections" multiple="multiple" name="last_notice_sections[]">
+        <select id="last_notice_sections" multiple="multiple" name="last_notice_sections[]" class="last_notice_details_sections">
             @foreach($sections_for_last_notice as $sections)
                 <option value="{{ $sections->id }}">{{ $sections->section }}</option>
             @endforeach
         </select>       
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details" class="check_last_notice_details" /> Select last notice details
+            </label>        
+        </div>
+
     </div>
 
 </div>
@@ -128,7 +145,7 @@
             
 
          
-
+<!-- 
 <script type="text/javascript">
         $(function () {
             $('#courses, #branches, #years, #sections, #last_notice_courses, #last_notice_branches, #last_notice_years, #last_notice_sections').multiselect({
@@ -144,6 +161,6 @@
             // });
         });
 </script>
-
+ -->
 @endsection
 
