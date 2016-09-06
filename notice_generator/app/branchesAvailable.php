@@ -23,7 +23,7 @@ class branchesAvailable extends Model
 
     public function  Courses()
     {
-        return $this->belongsToMany('App\branchesAvailable', 'branch_course', 'branch_id', 'course_id');
+        return $this->belongsToMany('App\coursesAvailable', 'branch_course', 'branch_id', 'course_id');
     }
 
     public static function getBranches()

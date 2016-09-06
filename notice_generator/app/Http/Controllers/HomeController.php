@@ -31,10 +31,11 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // commenting out authentication method since it's creating problem for logging in
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -99,53 +100,90 @@ class HomeController extends Controller
 
         try
         {
+
             // code for ajax filters starts from here
-                // $courses = $request->courses;
-                // $branches = coursesAvailable::find(1)->Branches()->get();
-                // $json['branches'] = $branches;
-                // foreach($courses as $course)
-                // {
-                //     $getCourse = coursesAvailable::find($course);                
-                //     $json['status'] = 0;
-                //     $branches = $getCourse->Branches()->get();
-                //     $json['branches'] = $branches;
-                // }
-            // code for ajax filters ends here
-            
-            $addNotice = new noticesAlter();
-            $addNotice->notice_subject = $request->subject;
-            $addNotice->additional_details = $request->additional_details;
-            $addNotice->save();
-
-            $courses = $request->courses;
-            $branches = $request->branches;
-            $years = $request->years;
-            $sections = $request->sections;
-
-            $notice = noticesAlter::find($addNotice->id);
-
-            $addCourse = coursesAvailable::find($courses);
-            $notice->Courses()->attach($courses);
-
-            $addBranch = branchesAvailable::find($branches);
-            $notice->Branches()->attach($branches);
-
-            $addYear = yearsAvailable::find($years);
-            $notice->Years()->attach($years);
-
-            $addSection = sectionsAvailable::find($sections);
-            $notice->sections()->attach($sections);
-            $files = Input::file('file');
-
-            if($files[0] != '')
+            if($request->courses)
             {
-                foreach($files as $file)
-                {
-                    $addFile = new files(['filename' => $file->getClientOriginalName()]);
-                    $file->move('uploads', $file->getClientOriginalName());
-                    $notice->Files()->save($addFile);
-                }
+                $json['category'] = 'courses';
             }
+            else if($request->branches)
+            {
+                $json['category'] = 'branches';
+            }
+            else if($request->years)
+            {
+                $json['category'] = 'years';
+            }
+            $json['status'] = 1;
+
+                // $courses = $request->courses; // get all course_ids in an array by ajax
+                // $branches = [];
+                // foreach($courses as $course) // iterate over every course_id
+                // {                    
+                //     $courseObject = coursesAvailable::find($course); // find course from it's respective id
+                //     $getBranches = $courseObject->Branches()->get();   // get all branches in respect to the $courseObject 
+                //     foreach($getBranches as $getBranch) // iterate over every branch that we got
+                //     {
+                //         $branches[$getBranch->id] = $getBranch->branch; //saving branches in form of key => value
+                //     }
+                // }
+                // $json['category'] = 'branches';
+                // $json['allValues'] = $branches; // $json['allValues'] - generalized for courses, branches, years & sections
+                // $json['status'] = 1;
+
+            // code for ajax filters ends here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            // $addNotice = new noticesAlter();
+            // $addNotice->notice_subject = $request->subject;
+            // $addNotice->additional_details = $request->additional_details;
+            // $addNotice->save();
+
+            // $courses = $request->courses;
+            // $branches = $request->branches;
+            // $years = $request->years;
+            // $sections = $request->sections;
+
+            // $notice = noticesAlter::find($addNotice->id);
+
+            // $addCourse = coursesAvailable::find($courses);
+            // $notice->Courses()->attach($courses);
+
+            // $addBranch = branchesAvailable::find($branches);
+            // $notice->Branches()->attach($branches);
+
+            // $addYear = yearsAvailable::find($years);
+            // $notice->Years()->attach($years);
+
+            // $addSection = sectionsAvailable::find($sections);
+            // $notice->sections()->attach($sections);
+
+            // $files = Input::file('file');
+
+            // if($files[0] != '')
+            // {
+            //     foreach($files as $file)
+            //     {
+            //         $addFile = new files(['filename' => $file->getClientOriginalName()]);
+            //         $file->move('uploads', $file->getClientOriginalName());
+            //         $notice->Files()->save($addFile);
+            //     }
+            // }
             
             $json['message'] = 'added successfully';
 

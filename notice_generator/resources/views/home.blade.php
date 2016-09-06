@@ -44,27 +44,27 @@
     
             </div>
             
-            <div class="form-group">
+            <div class="form-group" style="margin-top:20px">
                 <label class="control-label col-md-2 col-md-offset-2" for="subject">Subject</label>
                 <div class="col-md-6">
                     <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject">
                 </div>
             </div>
 
-            <div id="upload">
+            <!-- <div id="upload">
                 <div id="drop">Drop Here
                 <a>Browse</a>
-                <input type="file" name="upl" multiple />
+                <input type="file" id="file" class="file" name="file[]" multiple  />
                 </div>
             <ul>
-                <!-- The file uploads will be shown here -->
+                
             </ul>
-            </div>
-            <!-- <div class="form-group">
+            </div> -->
+            <div class="form-group">
                 <div class="col-md-2 col-md-offset-5">
                     <input type="file" name="file[]" id="file" class="file" multiple />                
                 </div>
-            </div> -->
+            </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2 col-md-offset-2" for="additional-details">Additional Data</label>
@@ -73,7 +73,7 @@
                 </div>
             </div>            
             <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token" />
-                        <!-- csrf_token should be here for the form -->
+                        
             
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-4">
@@ -139,12 +139,6 @@
     </div>
 
 </div>
-
-            
-            
-            
-
-         
 <!-- 
 <script type="text/javascript">
         $(function () {

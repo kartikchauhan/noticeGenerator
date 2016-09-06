@@ -16,14 +16,14 @@ class coursesAvailable extends Model
 
     public function noticesAlter()
     {
-        // Actual relationship is on to many, problem in making pivot table for one to many relationship
+        // Actual relationship is one to many, problem in making pivot table for one to many relationship
         return $this->belongsToMany('App\noticesAlter', 'coursesavailable_noticesalter', 'course_id', 'notice_id')
         ->withTimestamps(); 
     }
 
     public function Branches()
     {
-        return $this->belongsToMany('App\coursesAvailable', 'branch_course', 'course_id', 'branch_id');
+        return $this->belongsToMany('App\branchesAvailable', 'branch_course', 'course_id', 'branch_id');
     }
 
     public static function getCourses()
