@@ -25,33 +25,6 @@ $(function(){
 
 	});
 
-	// $('#years').on('change', function(){
-	// 	if($('#years').val()==null)
-	// 	{	
-	// 		alert('select a branch first');			
-	// 	}
-	// 	else
-	// 	{
-	// 		request.index = 3;
-	// 		request.years = $('#years').val();
-	// 		sendData(request);
-	// 	}
-
-	// });
-
-	// $('#sections').on('change', function(){
-	// 	if($('#sections').val()==null)
-	// 	{	
-	// 		alert('select a year first');			
-	// 	}
-	// 	else
-	// 	{
-	// 		request.sections = $('#sections').val();
-	// 		sendData(request);
-	// 	}
-
-	// });
-
 });
 
 
@@ -64,27 +37,28 @@ function sendData(request)
 	})
 	.done(function(response){
 		if(response.status==1)
-		{		
-		console.log(response.category);
-			var allValues = response.allValues; 
-			var responseCategory = response.category;
-			var category;
+		{				
+			var allValues = []; // array of objects for retrieving values from controller 
+			var responseCategory = response.category; // to get category from controller
+			var category = []; //array of objects for getting html elements
 
-			if(responseCategory == 'branches')
+			if(responseCategory == 'branches_&_years')
 			{
-				category = $('.branches');
+				category[0] = $('.branches');
+				category[1] = $('.years');
+
+				allValues[0] = response.branches;
+				allValues[1] = response.years;				
+
 			}			
 			else if(responseCategory == 'sections')
 			{
-				category = $('.sections');
+				category[0] = $('.sections');
+
+				allValues[0] = response.sections;
 			}
 
-			category.find('option').remove();
-
-			$.each(allValues, function(key, val){
-				category.append('<option value="' + key + '">' + val + '</option');
-			});
-
+			filter(category, allValues); // calling filter function for filtering out results
 		}
 		else
 		{
@@ -93,4 +67,17 @@ function sendData(request)
 		
 	});
 
+}
+
+function filter(category, allValues)
+{
+	$.each(category, function(val){
+		category[val].find('option').remove();					
+	});
+
+	$.each(allValues, function(val){
+		$.each(allValues[val], function(key, value){
+			category[val].append('<option value="' + key + '">' + value + '</option');
+		});
+	});
 }

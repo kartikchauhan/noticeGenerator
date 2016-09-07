@@ -105,19 +105,29 @@ class HomeController extends Controller
             if($request->index == 1)
             {
                 $branches = [];
+                $years = [];
                 $courses = $request->courses; // get all course_ids in an array by ajax
                 foreach($courses as $course) // iterate over every course_id
                 {                    
                     $courseObject = coursesAvailable::find($course); // find course from it's respective id
+
                     $getBranches = $courseObject->Branches()->get();   // get all branches in respect to the $courseObject 
+                    $getYears = $courseObject->Years()->get();
+
                     foreach($getBranches as $getBranch) // iterate over every branch that we got
                     {
                         $branches[$getBranch->id] = $getBranch->branch; //saving branches in form of key => value
                     }
+
+                    foreach($getYears as $getYear)
+                    {
+                        $years[$getYear->id] = $getYear->year;
+                    }
                 }
 
-                $json['category'] = 'branches';
-                $json['allValues'] = $branches; // $json['allValues'] - generalized for courses, branches, years & sections
+                $json['category'] = 'branches_&_years';
+                $json['branches'] = $branches;
+                $json['years'] = $years;
             }
 
             else if($request->index == 2)
@@ -135,7 +145,7 @@ class HomeController extends Controller
                 }
 
                 $json['category'] = 'sections';
-                $json['allValues'] = $sections; 
+                $json['sections'] = $sections; 
             }
             
                 $json['status'] = 1; 
@@ -199,7 +209,7 @@ class HomeController extends Controller
             return "something went wrong";
         }
 
-        return redirect()->back()->witherrors("notice added successfully");
+        return redirect()->back()->witherrors("notice added successfully"); // witherrors is just for showing a message at the same page
 
     }
 
