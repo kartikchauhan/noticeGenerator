@@ -14,6 +14,12 @@ class noticesAlter extends Model
     	'additional_details', 
     	];
 
+
+    public function Users()
+    {
+        return $this->belongsTo('App\User', 'department_id');
+    }
+
 	public function Files()
 	{
 		return $this->hasMany('App\files', 'notice_id');

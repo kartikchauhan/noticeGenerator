@@ -19,9 +19,12 @@ use App\branches;
 use App\years;
 use App\sections;
 
+use App\User;
+
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\File;
 
 class HomeController extends Controller
@@ -32,10 +35,10 @@ class HomeController extends Controller
      * @return void
      */
     // commenting out authentication method since it's creating problem for logging in
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Show the application dashboard.
@@ -46,13 +49,16 @@ class HomeController extends Controller
     {
         $json = [];
         try
-        {
+        {            
+            $currentUser = Auth::user();
+            $currentUserId = $currentUser->id;
             $courses = coursesAvailable::getCourses();
             $branches = branchesAvailable::getBranches();
             $years = yearsAvailable::getYears();
             $sections = sectionsAvailable::getSections();
 
-            $last_notice = noticesAlter::orderBy('created_at', 'desc')->first();
+            // retrieving the last notice details for the current department
+            $last_notice = noticesAlter::where('department_id', $currentUserId)->orderBy('created_at', 'desc')->first();
 
             $courses_for_last_notice = $last_notice->Courses()->get();   
             $branches_for_last_notice = $last_notice->Branches()->get();   
@@ -165,10 +171,12 @@ class HomeController extends Controller
     {
         try
         {
+            $currentUser = Auth::user();
 
             $addNotice = new noticesAlter();
             $addNotice->notice_subject = $request->subject;
             $addNotice->additional_details = $request->additional_details;
+            $addNotice->Users()->associate($currentUser);
             $addNotice->save();
 
             $courses = $request->courses;
