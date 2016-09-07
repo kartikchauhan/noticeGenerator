@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateYearsTable extends Migration
+class CreateCourseYearTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,16 @@ class CreateYearsTable extends Migration
      */
     public function up()
     {
-        Schema::create('years', function (Blueprint $table) {
+        Schema::create('course_year', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('notice_id')->unsigned();
+            $table->integer('course_id')->unsigned();
             $table->integer('year_id')->unsigned();
-
             $table->timestamps();
         });
 
-        Schema::table('years', function (Blueprint $table) {
+        Schema::table('course_year', function (Blueprint $table) {
+            $table->foreign('course_id')->references('id')->on('coursesAvailable');
             $table->foreign('year_id')->references('id')->on('yearsAvailable');
-            $table->foreign('notice_id')->references('id')->on('notices');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateYearsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('years');
+        Schema::drop('course_year');
     }
 }

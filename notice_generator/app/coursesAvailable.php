@@ -26,6 +26,11 @@ class coursesAvailable extends Model
         return $this->belongsToMany('App\branchesAvailable', 'branch_course', 'course_id', 'branch_id');
     }
 
+    public function Years()
+    {
+        return $this->belongsToMany('App\yearsAvailable', 'course_year', 'course_id', 'year_id');
+    }
+
     public static function getCourses()
     {
     	return DB::table('coursesavailable')

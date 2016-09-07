@@ -21,6 +21,11 @@ class sectionsAvailable extends Model
         ->withTimestamps(); 
     }
 
+    public function Branches()
+    {
+        return $this->belongsToMany('App\branchesAvailable', 'branch_section', 'section_id', 'branch_id' );
+    }
+
     public static function getSections()
     {
     	return DB::table('sectionsavailable')

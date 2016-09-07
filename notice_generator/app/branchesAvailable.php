@@ -26,6 +26,11 @@ class branchesAvailable extends Model
         return $this->belongsToMany('App\coursesAvailable', 'branch_course', 'branch_id', 'course_id');
     }
 
+    public function Sections()
+    {
+        return $this->belongsToMany('App\sectionsAvailable', 'branch_section', 'branch_id', 'section_id');
+    }
+
     public static function getBranches()
     {
     	return DB::table('branchesavailable')

@@ -6,7 +6,7 @@
 
     <div class="jumbotron col-md-8">
 
-        <form class="form-horizontal" action="{{ URL('home') }}" file=true enctype="multipart/form-data" method="post" >                        
+        <form class="form-horizontal" action="{{ URL('save') }}" file=true enctype="multipart/form-data" method="post" >                        
 
              <div class="row">
     

@@ -94,98 +94,103 @@ class HomeController extends Controller
             // code for retrieving courses ends here
             
 
-    public function createNotice(Request $request)
+    public function categorizeNotice(Request $request)
     {     
         $json = [];
 
         try
         {
-
             // code for ajax filters starts from here
-            if($request->courses)
+
+            if($request->index == 1)
             {
-                $json['category'] = 'courses';
-            }
-            else if($request->branches)
-            {
+                $branches = [];
+                $courses = $request->courses; // get all course_ids in an array by ajax
+                foreach($courses as $course) // iterate over every course_id
+                {                    
+                    $courseObject = coursesAvailable::find($course); // find course from it's respective id
+                    $getBranches = $courseObject->Branches()->get();   // get all branches in respect to the $courseObject 
+                    foreach($getBranches as $getBranch) // iterate over every branch that we got
+                    {
+                        $branches[$getBranch->id] = $getBranch->branch; //saving branches in form of key => value
+                    }
+                }
+
                 $json['category'] = 'branches';
+                $json['allValues'] = $branches; // $json['allValues'] - generalized for courses, branches, years & sections
             }
-            else if($request->years)
+
+            else if($request->index == 2)
             {
-                $json['category'] = 'years';
+                $sections = [];
+                $branches = $request->branches; 
+                foreach($branches as $branch) 
+                {                    
+                    $branchObject = branchesAvailable::find($branch); 
+                    $getSections = $branchObject->Sections()->get(); 
+                    foreach($getSections as $getSection)
+                    {
+                        $sections[$getSection->id] = $getSection->section;
+                    }
+                }
+
+                $json['category'] = 'sections';
+                $json['allValues'] = $sections; 
             }
-            $json['status'] = 1;
-
-                // $courses = $request->courses; // get all course_ids in an array by ajax
-                // $branches = [];
-                // foreach($courses as $course) // iterate over every course_id
-                // {                    
-                //     $courseObject = coursesAvailable::find($course); // find course from it's respective id
-                //     $getBranches = $courseObject->Branches()->get();   // get all branches in respect to the $courseObject 
-                //     foreach($getBranches as $getBranch) // iterate over every branch that we got
-                //     {
-                //         $branches[$getBranch->id] = $getBranch->branch; //saving branches in form of key => value
-                //     }
-                // }
-                // $json['category'] = 'branches';
-                // $json['allValues'] = $branches; // $json['allValues'] - generalized for courses, branches, years & sections
-                // $json['status'] = 1;
-
-            // code for ajax filters ends here
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             
-            // $addNotice = new noticesAlter();
-            // $addNotice->notice_subject = $request->subject;
-            // $addNotice->additional_details = $request->additional_details;
-            // $addNotice->save();
+                $json['status'] = 1; 
+          
+        }
+        catch(Exception $e)
+        {
+            return "something went wrong";
+        }
 
-            // $courses = $request->courses;
-            // $branches = $request->branches;
-            // $years = $request->years;
-            // $sections = $request->sections;
+        return response()->json($json);
 
-            // $notice = noticesAlter::find($addNotice->id);
+        // code for ajax filters ends here
+    }
 
-            // $addCourse = coursesAvailable::find($courses);
-            // $notice->Courses()->attach($courses);
+    public function saveNotice(Request $request)
+    {
+        try
+        {
 
-            // $addBranch = branchesAvailable::find($branches);
-            // $notice->Branches()->attach($branches);
+            $addNotice = new noticesAlter();
+            $addNotice->notice_subject = $request->subject;
+            $addNotice->additional_details = $request->additional_details;
+            $addNotice->save();
 
-            // $addYear = yearsAvailable::find($years);
-            // $notice->Years()->attach($years);
+            $courses = $request->courses;
+            $branches = $request->branches;
+            $years = $request->years;
+            $sections = $request->sections;
 
-            // $addSection = sectionsAvailable::find($sections);
-            // $notice->sections()->attach($sections);
+            $notice = noticesAlter::find($addNotice->id);
 
-            // $files = Input::file('file');
+            $addCourse = coursesAvailable::find($courses);
+            $notice->Courses()->attach($courses);
 
-            // if($files[0] != '')
-            // {
-            //     foreach($files as $file)
-            //     {
-            //         $addFile = new files(['filename' => $file->getClientOriginalName()]);
-            //         $file->move('uploads', $file->getClientOriginalName());
-            //         $notice->Files()->save($addFile);
-            //     }
-            // }
-            
-            $json['message'] = 'added successfully';
+            $addBranch = branchesAvailable::find($branches);
+            $notice->Branches()->attach($branches);
+
+            $addYear = yearsAvailable::find($years);
+            $notice->Years()->attach($years);
+
+            $addSection = sectionsAvailable::find($sections);
+            $notice->sections()->attach($sections);
+
+            $files = Input::file('file');
+
+            if($files[0] != '')
+            {
+                foreach($files as $file)
+                {
+                    $addFile = new files(['filename' => $file->getClientOriginalName()]);
+                    $file->move('uploads', $file->getClientOriginalName());
+                    $notice->Files()->save($addFile);
+                }
+            }            
 
          }   
 
@@ -194,23 +199,7 @@ class HomeController extends Controller
             return "something went wrong";
         }
 
-        return response()->json($json);
-
-        // $files = Input::file('file');
-
-        // if($files[0] !='')
-        // {
-        //     foreach($files as $file)
-        //     {
-        //         $addFile = new files();
-        //         $addFile->notice_id = $notice->id;
-        //         $addFile->filename = $file->getClientOriginalName();
-        //         $file->move('uploads', $file->getClientOriginalName());
-        //         $addFile->save();
-        //     }
-        // }
-
-        
+        return redirect()->back()->witherrors("notice added successfully");
 
     }
 
@@ -219,48 +208,4 @@ class HomeController extends Controller
        
 
    
-        // if(File::isFile($file))
-        // {
-        //     // $file = 'uploads/Basic_English_Usage_[Oxford].pdf';
-        //     // $headers = array('Content-type: application/pdf');
-        //     // return Response::download($file, 'Basic_English_Usage_[Oxford].pdf', $headers);
-        // }
-        // try
-        // {
-        //     $this->validate($request,[
-        //         'subject'=>'required',
-        //         'file'=>'required'
-        //         ]);
-        //     $notice = new noticesAlter();      
-        //     $file = $request->file;
-        //     if(file_exists($file))                  
-        //     {
-        //         $contents = file_get_contents($file);
-
-        //         return Response::make($content, 200, array('content-type'=>'application/pdf'));
-        //     }
-        //     // if($request->hasFile('file'))
-        //     // {
-                
-        //     //     $file = Input::file('file');
-        //     //     $notice->filename = $file->getClientOriginalName();
-        //     //     $file->move('uploads', $notice->file);                
-        //     // }
-        //     // else
-        //     // {
-        //     //     return Redirect::back()->with('message','Upload A file');
-        //     // }
-
-        //     $notice->notice_subject = $request->subject;
-        //     $notice->additional_details = $request->additional_details;
-        //     $notice->save();
-        //     return "file added successfully";
-        // }
-        // catch(Exception $e)
-        // {
-        //     return ("something went wrong");
-        // }
-        
-    // }
-
 

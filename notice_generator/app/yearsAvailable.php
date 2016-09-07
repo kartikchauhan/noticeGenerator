@@ -21,6 +21,11 @@ class yearsAvailable extends Model
         ->withTimestamps(); 
     }
 
+    public function Courses()
+    {
+        return $this->belongsToMany('App\coursesAvailable', 'branch_course', 'year_id', 'course_id');
+    }
+
     public static function getYears()
     {
     	return DB::table('yearsavailable')

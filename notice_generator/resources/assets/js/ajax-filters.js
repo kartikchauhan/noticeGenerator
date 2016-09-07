@@ -1,9 +1,10 @@
 $(function(){
 	var request = {};
 	request._token = $('#_token').val();
-	$('#courses').on('change', function(){
-		var request = {};
+
+	$('#courses').on('change', function(){		
 		request.courses = $('#courses').val();
+		request.index = 1;
 		// request._token = $('#_token').val();
 		console.log(request._token);
 		sendData(request);
@@ -17,37 +18,39 @@ $(function(){
 		}
 		else
 		{
-			var branches = $('#branches').val();
-			sendData(branches);
+			request.index = 2;
+			request.branches = $('#branches').val();
+			sendData(request);
 		}
 
 	});
 
-	$('#years').on('change', function(){
-		if($('#years').val()==null)
-		{	
-			alert('select a branch first');			
-		}
-		else
-		{
-			var years = $('#years').val();
-			sendData(years);
-		}
+	// $('#years').on('change', function(){
+	// 	if($('#years').val()==null)
+	// 	{	
+	// 		alert('select a branch first');			
+	// 	}
+	// 	else
+	// 	{
+	// 		request.index = 3;
+	// 		request.years = $('#years').val();
+	// 		sendData(request);
+	// 	}
 
-	});
+	// });
 
-	$('#sections').on('change', function(){
-		if($('#sections').val()==null)
-		{	
-			alert('select a year first');			
-		}
-		else
-		{
-			var sections = $('#sections').val();
-			sendData(sections);
-		}
+	// $('#sections').on('change', function(){
+	// 	if($('#sections').val()==null)
+	// 	{	
+	// 		alert('select a year first');			
+	// 	}
+	// 	else
+	// 	{
+	// 		request.sections = $('#sections').val();
+	// 		sendData(request);
+	// 	}
 
-	});
+	// });
 
 });
 
@@ -63,28 +66,24 @@ function sendData(request)
 		if(response.status==1)
 		{		
 		console.log(response.category);
-			// var allValues = response.allValues; 
-			// var responseCategory = response.category;
-			// var category;
+			var allValues = response.allValues; 
+			var responseCategory = response.category;
+			var category;
 
-			// if(responseCategory == 'branches')
-			// {
-			// 	category = $('.branches');
-			// }
-			// else if(responseCategory == 'years')
-			// {
-			// 	category = $('.years');
-			// }
-			// else if(responseCategory == 'sections')
-			// {
-			// 	category = $('.sections');
-			// }
+			if(responseCategory == 'branches')
+			{
+				category = $('.branches');
+			}			
+			else if(responseCategory == 'sections')
+			{
+				category = $('.sections');
+			}
 
-			// category.find('option').remove();
+			category.find('option').remove();
 
-			// $.each(allValues, function(key, val){
-			// 	category.append('<option value="' + key + '">' + val + '</option');
-			// });
+			$.each(allValues, function(key, val){
+				category.append('<option value="' + key + '">' + val + '</option');
+			});
 
 		}
 		else

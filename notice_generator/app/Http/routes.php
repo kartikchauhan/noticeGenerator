@@ -19,7 +19,8 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
-Route::post('/home', 'HomeController@createNotice');
+Route::post('/home', 'HomeController@categorizeNotice');
+Route::post('/save', 'HomeController@saveNotice');
 
 Route::get('search', 'SearchController@search');
 Route::post('search', 'SearchController@getNames');
