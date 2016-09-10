@@ -22,5 +22,11 @@ Route::get('/home', 'HomeController@index');
 Route::post('/home', 'HomeController@categorizeNotice');
 Route::post('/save', 'HomeController@saveNotice');
 
-Route::get('search', 'SearchController@search');
-Route::post('search', 'SearchController@getNames');
+Route::get('/student/login', 'StudentController@showLoginForm');
+Route::post('/student/login', 'StudentController@login');
+
+Route::get('/student/register', 'StudentController@showRegistrationForm');
+Route::post('/student/register', 'StudentController@register');
+
+// Route::get('search', 'SearchController@search');
+// Route::post('search', 'SearchController@getNames');

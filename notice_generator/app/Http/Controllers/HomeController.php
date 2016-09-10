@@ -34,7 +34,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    // commenting out authentication method since it's creating problem for logging in
+    
     public function __construct()
     {
         $this->middleware('auth');
