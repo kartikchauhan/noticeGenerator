@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Student Login</div>
-                <div class="panel-body">
+                <div class="panel-body">                
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/student/login') }}">
                         {{ csrf_field() }}
 
@@ -14,13 +14,20 @@
                             <label for="student_no" class="col-md-4 control-label">Student No.</label>
 
                             <div class="col-md-6">
-                                <input id="student_no" type="student_no" class="form-control" name="student_no" value="{{ old('student_no') }}">
+                                <input id="student_no" type="text" class="form-control" name="student_no" value="{{ old('student_no') }}">
 
                                 @if ($errors->has('student_no'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('student_no') }}</strong>
                                     </span>
                                 @endif
+
+                                @if (Session::has('incorrectStudentNo'))
+                                    <span class="help-block">
+                                        <strong>{{ Session::get('incorrectStudentNo') }}</strong>
+                                    </span>
+                                @endif
+
                             </div>
                         </div>
 
@@ -35,6 +42,13 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
+
+                                @if (Session::has('incorrectPassword'))
+                                    <span class="help-block">
+                                        <strong>{{ Session::get('incorrectPassword') }}</strong>
+                                    </span>
+                                @endif
+
                             </div>
                         </div>
 

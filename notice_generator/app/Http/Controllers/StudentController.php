@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use App\coursesAvailable;
 use App\branchesAvailable;
@@ -15,6 +17,7 @@ use App\sectionsAvailable;
 use App\Student;
 
 use App\Http\Requests\StoreRegisteredStudents;
+use App\Http\Requests\AuthenticateStudents;
 
 class StudentController extends Controller
 {
@@ -28,21 +31,31 @@ class StudentController extends Controller
     	return view('student.login');
     }
 
-    public function login(Request $request)
-    {
-    	$checkStudent = Student::findorfail($request->student_no);
+    public function login(AuthenticateStudents $request)
+    {        
+        $student_no = $request->student_no;
+        $password = $request->password;
+    	$checkStudent = Student::where('student_no', $student_no)->exists(); // checking whether the student_no exists or not
     	if($checkStudent)
     	{
-    		$password = $checkStudent->password;
-    		if($password = $request->password)
+    		$matchPassword = ['student_no' => $student_no, 'password' => $password]; 
+    		$checkpassword = Student::where($matchPassword)->exists(); // checking whether student_no and password matches in the database or not
+    		if($checkpassword)
     		{
-    			return view('student.home');
+    			dd('user exists');
     		}
     		else
     		{
-    			return "Login first";
+                Session::flash('incorrectPassword', 'Incorrect Password');    			
     		}
     	}
+    	else
+    	{                        
+            Session::flash('incorrectStudentNo', 'Student Number not found');
+        }
+    	
+    	return Redirect()->back()->withInput();
+    	
 
     }
 
@@ -68,16 +81,14 @@ class StudentController extends Controller
 	    	$student->branch = $request->branch;
 	    	$student->year = $request->year;
 	    	$student->section = $request->section;
-	    	$student->password = bcrypt($request->password);
-	    	$student->save();
-	    	$json['message'] = "added successfully";
+	    	$student->password = $request->password; // storing text in plain form because bcrypt was encrypting password with new value every time
+	    	$student->save();	    	
+	    	return redirect('student/login');
     	}
     	catch(Exception $e)
     	{
-    		return "something went wrong";
+    		return redirect()->back()->withErrors("Something went wrong. Please try again.");
     	}
-    	return response()->json($json);
-    	
 
     }
 }

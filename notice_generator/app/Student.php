@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use DB;
 
-class Student extends Authenticatable
+use Illuminate\Database\Eloquent\Model;
+
+class Student extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -26,5 +28,11 @@ class Student extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+   
+    public static function getStudentRecord($student_no)
+    {
+        return DB::table('students')
+                ->where('student_no', $student_no)
+                ->get();
+    }
 }
