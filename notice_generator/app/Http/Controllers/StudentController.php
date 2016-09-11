@@ -15,6 +15,7 @@ use App\branchesAvailable;
 use App\yearsAvailable;
 use App\sectionsAvailable;
 use App\Student;
+use App\noticesAlter;
 
 use App\Http\Requests\StoreRegisteredStudents;
 use App\Http\Requests\AuthenticateStudents;
@@ -86,6 +87,8 @@ class StudentController extends Controller
                     array_push($noticeIdsFromSection, $getCorrespondingNoticeIdForSection->id);
                 }
 
+                $noticeIdsArray = [];
+
                 $leastValueArray = sizeof($noticeIdsFromCourse) > sizeof($noticeIdsFromBranch) ? $noticeIdsFromBranch : $noticeIdsFromCourse;
                 $leastValueArray = sizeof($leastValueArray) > sizeof($noticeIdsFromYear) ? $noticeIdsFromYear : $leastValueArray;
                 $leastValueArray = sizeof($leastValueArray) > sizeof($noticeIdsFromSection) ? $noticeIdsFromSection : $leastValueArray;                                
@@ -97,10 +100,36 @@ class StudentController extends Controller
                     $checkValueInSectionArray = in_array($value, $noticeIdsFromSection);
                     if($checkValueInCourseArray && $checkValueInBranchArray && $checkValueInYearArray && $checkValueInSectionArray)
                     {
-                        echo $value.'<br>';
+                        array_push($noticeIdsArray, $value);
                     }
                 }
-                dd('completed');
+
+                $noticesArray = [];
+                $filesArray = [];
+                $noticesAndFilesArray = [];
+
+                $i = 0;
+                foreach($noticeIdsArray as $noticeId)
+                {
+                    $notices = noticesAlter::find($noticeId);
+                    $noticesArray[$i] = $notices;
+
+                    $getFiles = $notices->Files()->get();
+                    $files = [];
+                    foreach($getFiles as $file)
+                    {                        
+                        array_push($files, $file);
+                    }
+                    $filesArray[$i] = $files;
+
+                    $i++;
+                }                                           
+
+                array_push($noticesAndFilesArray, $noticesArray);
+                array_push($noticesAndFilesArray, $filesArray);                
+
+                return view('student.dashboard', compact(array('noticesAndFilesArray')));
+
     	// 		return view('student.dashboard', compact(array('name', 'course', 'branch', 'year', 'section')));
     	// 	}
     	// 	else
