@@ -33,6 +33,7 @@ class Student extends Model
     {
         return DB::table('students')
                 ->where('student_no', $student_no)
-                ->get();
+                ->first();
     }
+
 }

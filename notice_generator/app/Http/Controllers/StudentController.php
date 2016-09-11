@@ -31,30 +31,89 @@ class StudentController extends Controller
     	return view('student.login');
     }
 
-    public function login(AuthenticateStudents $request)
+    public function login(Request $request)
     {        
-        $student_no = $request->student_no;
-        $password = $request->password;
-    	$checkStudent = Student::where('student_no', $student_no)->exists(); // checking whether the student_no exists or not
-    	if($checkStudent)
-    	{
-    		$matchPassword = ['student_no' => $student_no, 'password' => $password]; 
-    		$checkpassword = Student::where($matchPassword)->exists(); // checking whether student_no and password matches in the database or not
-    		if($checkpassword)
-    		{
-    			dd('user exists');
-    		}
-    		else
-    		{
-                Session::flash('incorrectPassword', 'Incorrect Password');    			
-    		}
-    	}
-    	else
-    	{                        
-            Session::flash('incorrectStudentNo', 'Student Number not found');
-        }
+     //    $student_no = $request->student_no;
+     //    $password = $request->password;
+    	// $checkStudent = Student::where('student_no', $student_no)->exists(); // checking whether the student_no exists or not
+    	// if($checkStudent)
+    	// {
+    	// 	$matchPassword = ['student_no' => $student_no, 'password' => $password]; 
+    	// 	$checkpassword = Student::where($matchPassword)->exists(); // checking whether student_no and password matches in the database or not
+    	// 	if($checkpassword)
+    	// 	{
+                // $getStudentRecord = Student::getStudentRecord($student_no);   
+                // $name = $getStudentRecord->name;                             
+                // $course = $getStudentRecord->course;
+                // $branch = $getStudentRecord->branch;
+                // $year = $getStudentRecord->year;
+                // $section = $getStudentRecord->section;
+
+                $noticeIdsFromCourse = [];
+                $noticeIdsFromBranch = [];
+                $noticeIdsFromYear = [];
+                $noticeIdsFromSection = [];
+
+                $getCourseName = coursesAvailable::find(1);                        
+                $getCorrespondingNoticeIdsForCourse = $getCourseName->noticesAlter()->get();
+                
+                foreach($getCorrespondingNoticeIdsForCourse as $getCorrespondingNoticeIdForCourse)
+                {                    
+                    array_push($noticeIdsFromCourse, $getCorrespondingNoticeIdForCourse->id);
+                }
+
+                $getBranchName = branchesAvailable::find(1);                        
+                $getCorrespondingNoticeIdsForBranch = $getBranchName->noticesAlter()->get();
+                
+                foreach($getCorrespondingNoticeIdsForBranch as $getCorrespondingNoticeIdForBranch)
+                {                       
+                    array_push($noticeIdsFromBranch, $getCorrespondingNoticeIdForBranch->id);
+                }                
+
+                $getYearName = yearsAvailable::find(3);                        
+                $getCorrespondingNoticeIdsForYear = $getYearName->noticesAlter()->get();
+                
+                foreach($getCorrespondingNoticeIdsForYear as $getCorrespondingNoticeIdForYear)
+                {                       
+                    array_push($noticeIdsFromYear, $getCorrespondingNoticeIdForYear->id);
+                }                
+
+                $getSectionName = sectionsAvailable::find(2);                        
+                $getCorrespondingNoticeIdsForSection = $getSectionName->noticesAlter()->get();
+                
+                foreach($getCorrespondingNoticeIdsForSection as $getCorrespondingNoticeIdForSection)
+                {                       
+                    array_push($noticeIdsFromSection, $getCorrespondingNoticeIdForSection->id);
+                }
+
+                $leastValueArray = sizeof($noticeIdsFromCourse) > sizeof($noticeIdsFromBranch) ? $noticeIdsFromBranch : $noticeIdsFromCourse;
+                $leastValueArray = sizeof($leastValueArray) > sizeof($noticeIdsFromYear) ? $noticeIdsFromYear : $leastValueArray;
+                $leastValueArray = sizeof($leastValueArray) > sizeof($noticeIdsFromSection) ? $noticeIdsFromSection : $leastValueArray;                                
+                foreach($leastValueArray as $value)
+                {
+                    $checkValueInCourseArray = in_array($value, $noticeIdsFromCourse);
+                    $checkValueInBranchArray = in_array($value, $noticeIdsFromBranch);
+                    $checkValueInYearArray = in_array($value, $noticeIdsFromYear);
+                    $checkValueInSectionArray = in_array($value, $noticeIdsFromSection);
+                    if($checkValueInCourseArray && $checkValueInBranchArray && $checkValueInYearArray && $checkValueInSectionArray)
+                    {
+                        echo $value.'<br>';
+                    }
+                }
+                dd('completed');
+    	// 		return view('student.dashboard', compact(array('name', 'course', 'branch', 'year', 'section')));
+    	// 	}
+    	// 	else
+    	// 	{
+     //            Session::flash('incorrectPassword', 'Incorrect Password');    			
+    	// 	}
+    	// }
+    	// else
+    	// {                        
+     //        Session::flash('incorrectStudentNo', 'Student Number not found');
+     //    }
     	
-    	return Redirect()->back()->withInput();
+    	// return Redirect()->back()->withInput();
     	
 
     }
