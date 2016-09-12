@@ -6,7 +6,7 @@
 
     <div class="jumbotron col-md-8">
 
-        <form class="form-horizontal" action="{{ URL('save') }}" file=true enctype="multipart/form-data" method="post" >                        
+        <form class="form-horizontal" action="{{ URL('save') }}" file=true enctype="multipart/form-data" method="post" >
 
              <div class="row">
     
@@ -62,7 +62,7 @@
             </div> -->
             <div class="form-group">
                 <div class="col-md-2 col-md-offset-5">
-                    <input type="file" name="file[]" id="file" class="file" multiple />                
+                    <input type="file" name="files[]" id="file" class="file" multiple />                
                 </div>
             </div>
 

@@ -1,14 +1,28 @@
+.files-container
+{
+	display: inline-flex; /* this needs to be changed */
+}
+
 .files
 {
-	height:90px;
-	width:75px;
-	display: inline;	
-	padding: inherit;
+	height:150px;
+	width:100px;
+	
+	margin-right: 20px;
+	text-align: center;
 }
 
 
 .files img
 {
-	height: inherit;
+	height: 120px;
 	width: inherit;
+	display: block;
+	    margin-bottom: 10px
+}
+
+.gyphicon-container
+{
+	text-align: center;
+	display: inline;
 }

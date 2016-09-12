@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateNotice;
 
 use App\coursesAvailable;
 use App\branchesAvailable;
@@ -167,7 +168,7 @@ class HomeController extends Controller
         // code for ajax filters ends here
     }
 
-    public function saveNotice(Request $request)
+    public function saveNotice(CreateNotice $request)
     {
         try
         {
@@ -198,17 +199,15 @@ class HomeController extends Controller
             $addSection = sectionsAvailable::find($sections);
             $notice->sections()->attach($sections);
 
-            $files = Input::file('file');
+            $files = Input::file('files');
 
-            if($files[0] != '')
+            foreach($files as $file)
             {
-                foreach($files as $file)
-                {
-                    $addFile = new files(['filename' => $file->getClientOriginalName()]);
-                    $file->move('uploads', $file->getClientOriginalName());
-                    $notice->Files()->save($addFile);
-                }
-            }            
+                $addFile = new files(['filename' => $file->getClientOriginalName()]);
+                $file->move('uploads', $file->getClientOriginalName());
+                $notice->Files()->save($addFile);
+            }
+          
 
          }   
 
