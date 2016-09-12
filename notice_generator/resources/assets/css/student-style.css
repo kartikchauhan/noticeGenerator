@@ -1,0 +1,14 @@
+.files
+{
+	height:90px;
+	width:75px;
+	display: inline;	
+	padding: inherit;
+}
+
+
+.files img
+{
+	height: inherit;
+	width: inherit;
+}

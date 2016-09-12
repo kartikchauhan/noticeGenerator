@@ -1,4 +1,3 @@
-
 @extends('student.master-student')
 
 @section('content')
@@ -11,17 +10,17 @@
 					@if($key == 0)	
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
-								<h3>{{ $value->notice_subject }}</h3>
+								<h4>{{ $value->notice_subject }}</h4>
 							</div>
 						</div>
-					@elseif($key == 1)						
-						@foreach($value as $filekey=> $file)
-							<div class="row">
-								<div class="col-md-4 col-md-offset-4">
-									<h3>{{ $file->filename }}</h3>
+					@elseif($key == 1)												
+						<div class="jumbotron files-container" style="background-color:white" id="files-container">
+							@foreach($value as $filekey=> $file)	
+								<div class=files>																									
+									<img src="{{ url('/uploads/'.$file->filename) }}" />										
 								</div>
-							</div>
-						@endforeach
+							@endforeach
+						</div>								
 					@endif
 				@endforeach
 			</div>
