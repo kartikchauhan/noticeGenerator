@@ -20,10 +20,9 @@
 							<div class="files-container">
 								@foreach($value as $filekey=> $file)	
 									<div class=files>																									
-										<img src="{{ url('/uploads/'.$file->filename) }}" />
+										<a href="#" class="pop"><img src="{{ url('/uploads/'.$file->filename) }}" /></a>
 										<div class="gyphicon-container">
-											<a download="{{ $file->filename }}" href="{{ url('/uploads/'.$file->filename) }}" ><span class="glyphicon glyphicon-download-alt"></span></a> <span style="color:grey">| </span>
-											<a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>									
+											<a download="{{ $file->filename }}" href="{{ url('/uploads/'.$file->filename) }}" ><span class="glyphicon glyphicon-download-alt"></span></a>											
 										</div>
 									</div>
 								@endforeach
@@ -34,16 +33,38 @@
 				<!-- fetching notice additional details if any -->
 				@foreach($noticesAndFiles as $key => $value) <!-- should be using a variable in lieu of a loop for fetching additional details -->
 					@if($key == 0)
-						<div class="row">
-							<div class="col-md-8 col-md-offset-2">
-								<h5>{{ $value->additional_details }}</h5>
+						@if(count($value->additional_details))
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2">
+									<h5>{{ $value->additional_details }}</h5>
+								</div>
 							</div>
-						</div>
+						@endif
 					@endif
 				@endforeach
 			</div>
 		</div>	
 	@endforeach			
- </div>
+</div>
+
+<div class="modal fade" id="imageModal" tab-index="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    			<img src="" class="imagepreview" style="width: 100%;" >
+    		</div>	
+    	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$('.pop').on('click',function(){
+			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
+			$('#imageModal').modal('show');
+		});
+	});
+</script>	
 
 @endsection
