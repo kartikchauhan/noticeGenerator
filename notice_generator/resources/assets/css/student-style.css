@@ -28,3 +28,20 @@
 	text-align: center;
 	display: inline;
 }
+
+.notice-timestamps-container
+{
+	margin-bottom: 10px;
+}
+
+.notice-timestamps
+{
+	font-family: Arial;
+	margin-left: 10px;
+}
+
+.glyphicon-clock
+{
+	display: inline-flex;
+	font-size: 14px;
+}

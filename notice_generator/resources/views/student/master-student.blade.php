@@ -52,7 +52,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Notice Generator
+                    Digital Notice
                 </a>
             </div>
 

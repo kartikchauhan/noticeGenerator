@@ -5,6 +5,16 @@
 <div class="container fluid">
 	@foreach($noticesAndFilesArray as $noticesAndFiles)		
 		<div class="col-md-8 col-md-offset-2">
+			@foreach($noticesAndFiles as $key => $value)
+				@if($key == 0)
+					<div class="notice-timestamps-container">
+						<span class="glyphicon glyphicon-time glyphicon-clock">
+						<!-- changing date format of notice created_at to more readable form -->
+							<div class="notice-timestamps">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('l jS \\of F Y h:i:s A') }}</div>							
+						</span>
+					</div>
+				@endif
+			@endforeach
 			<div class="jumbotron">
 				@foreach($noticesAndFiles as $key => $value) 	
 				<!-- fetching notice subject -->
@@ -41,7 +51,7 @@
 					@if($key == 0)
 						@if(count($value->additional_details))
 							<div class="row">
-								<div class="col-md-8 col-md-offset-2">
+								<div class="col-md-8">
 									<h5>{{ $value->additional_details }}</h5>
 								</div>
 							</div>

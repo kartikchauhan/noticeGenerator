@@ -114,11 +114,13 @@ class StudentController extends Controller
                     }
                 }                
 
+                // reversing array $noticeIdsArray for timestamps in view (to get latest notice at top)
+                $reverseNoticeIdsArray = array_reverse($noticeIdsArray);
                 // code for putting arrays into arrays starts from here
 
                 $noticesAndFilesArray = [];                    
 
-                foreach($noticeIdsArray as $noticeId)
+                foreach($reverseNoticeIdsArray as $noticeId)
                 {
                     $temp = [];
                     $notices = noticesAlter::find($noticeId);
@@ -129,6 +131,7 @@ class StudentController extends Controller
 
                     array_push($noticesAndFilesArray, $temp);
                 }
+
                 //  code for putting arrays into arrays ends here                                                 
 
                 return view('student.dashboard', compact(array('name', 'noticesAndFilesArray')));
