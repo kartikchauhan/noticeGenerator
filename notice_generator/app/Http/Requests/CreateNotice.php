@@ -38,7 +38,7 @@ class CreateNotice extends Request
         {
             foreach($files as $key => $file)
             {
-                $rules[sprintf('files.%d', $key)] = 'required|mimes:pdf,png,jpeg,jpg';
+                $rules[sprintf('files.%d', $key)] = 'required|mimes:pdf,png,jpeg,jpg,doc,docx';
             }
         }
 

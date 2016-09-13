@@ -18,9 +18,15 @@
 					@elseif($key == 1)												
 						<div class="jumbotron" style="background-color:white">
 							<div class="files-container">
-								@foreach($value as $filekey=> $file)	
-									<div class=files>																									
-										<a href="#" class="pop"><img src="{{ url('/uploads/'.$file->filename) }}" /></a>
+								@foreach($value as $filekey=> $file)									
+									<div class=files>
+										@if (pathinfo($file->filename, PATHINFO_EXTENSION) == 'jpg' || pathinfo($file->filename, PATHINFO_EXTENSION) == 'jpeg' || pathinfo($file->filename, PATHINFO_EXTENSION) == 'png')										
+											<a href="#" class="pop"><img src="{{ url('/uploads/'.$file->filename) }}" /></a>											
+										@elseif(pathinfo($file->filename, PATHINFO_EXTENSION) == 'docx' || pathinfo($file->filename, PATHINFO_EXTENSION) == 'doc')
+											<a href="{{ url('/uploads/'.$file->filename) }}" target="_blank"><img src="{{ url('/uploads/docx.png') }}" /><a>
+										@elseif(pathinfo($file->filename, PATHINFO_EXTENSION) == 'pdf')
+											<a href="{{ url('/uploads/'.$file->filename) }}" target="_blank"><img src="{{ url('/uploads/pdf.png') }}" /><a>
+										@endif
 										<div class="gyphicon-container">
 											<a download="{{ $file->filename }}" href="{{ url('/uploads/'.$file->filename) }}" ><span class="glyphicon glyphicon-download-alt"></span></a>											
 										</div>
