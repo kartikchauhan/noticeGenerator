@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+
 class StudentAuthController extends Controller
 {
     /*
@@ -30,15 +31,17 @@ class StudentAuthController extends Controller
      */
     protected $redirectTo = '/student/login';
 
+    protected $guard = 'student';
+
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -46,11 +49,14 @@ class StudentAuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+    // code before multiAuth
+    
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:students',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -62,12 +68,36 @@ class StudentAuthController extends Controller
      * @param  array  $data
      * @return User
      */
+
+    // code before multiAuth
+
     protected function create(array $data)
     {
-        return User::create([
+        return Student::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'student_no' => $data['student_no'],
+            'email' => $data['email'],            
             'password' => bcrypt($data['password']),            
         ]);
     }
+
+    public function showLoginForm()
+    {
+        if (view()->exists('auth.authenticate'))
+        {
+            return view('auth.dashboard');
+        }
+
+        return view('student.login');
+    }
+
+    public function login(AuthenticateStudents $request)
+    {
+        dd($request->student_no);
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('student.register');
+    }  
 }

@@ -1,5 +1,11 @@
 @extends('student.master-student')
 
+@section('script')
+
+	<link href="../../resources/assets/css/student-style.css" rel="stylesheet" />
+	
+@endsection
+
 @section('content')
 
 <div class="container fluid">

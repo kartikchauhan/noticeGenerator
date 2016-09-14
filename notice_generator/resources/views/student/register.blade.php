@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('student.master-student')
 
 @section('content')
 <div class="container">
@@ -56,6 +56,8 @@
                             </div>
                         </div>
 
+                        <!-- code before multiAuth -->
+
                         <div class="row">                        
                             <div class="col-md-2 col-md-offset-2">
                                 <select name="course" id="course">
@@ -90,6 +92,8 @@
                             </div>
 
                         </div>
+
+                       
                         
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">

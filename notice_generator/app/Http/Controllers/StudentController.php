@@ -22,9 +22,9 @@ use App\Http\Requests\AuthenticateStudents;
 
 class StudentController extends Controller
 {
-    //  public function __construct()
+    // public function __construct()
     // {
-    //     $this->middleware('auth');
+    //     $this->middleware('student');
     // }
 
     public function showLoginForm()
@@ -38,7 +38,7 @@ class StudentController extends Controller
         $password = $request->password;
     	$checkStudent = Student::where('student_no', $student_no)->exists(); // checking whether the student_no exists or not
     	if($checkStudent)
-    	{
+    	{            
     		$matchPassword = ['student_no' => $student_no, 'password' => $password]; 
     		$checkpassword = Student::where($matchPassword)->exists(); // checking whether student_no and password matches in the database or not
     		if($checkpassword)

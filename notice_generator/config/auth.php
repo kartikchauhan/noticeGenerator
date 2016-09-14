@@ -12,6 +12,7 @@ return [
     | as required, but they're a perfect start for most applications.
     |
     */
+    // code before multiAuth
 
     'defaults' => [
         'guard' => 'web',
@@ -105,6 +106,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'email' => 'auth.emails.password',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'student' => [
+            'provider' => 'student',
             'email' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,

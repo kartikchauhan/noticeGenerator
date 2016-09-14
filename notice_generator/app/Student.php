@@ -4,9 +4,12 @@ namespace App;
 
 use DB;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Model
+// code before multiAuth
+// use Illuminate\Database\Eloquent\Model;
+
+class Student extends Authenticatable
 {
     /**
      * The attributes that are mass assignable.

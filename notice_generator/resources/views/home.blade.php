@@ -45,8 +45,8 @@
             </div>
             
             <div class="form-group" style="margin-top:20px">
-                <label class="control-label col-md-2 col-md-offset-2" for="subject">Subject</label>
-                <div class="col-md-6">
+                <label class="control-label col-md-2" for="subject">Subject</label>
+                <div class="col-md-10">
                     <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject">
                 </div>
             </div>
@@ -67,27 +67,19 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-2 col-md-offset-2" for="additional-details">Additional Data</label>
-                <div class="col-md-6">
+                <label class="control-label col-md-2" for="additional-details">Additional Data</label>
+                <div class="col-md-10">
                    <textarea class="form-control" rows="5" id="additional-details" name="additional_details" placeholder="Enter Any Additional Detail"></textarea>
                 </div>
             </div>            
             <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token" />
-                        
             
             <div class="form-group">
-                <div class="col-md-10 col-md-offset-4">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </div>
-            </div>            
-
+                <button type="submit" class="btn btn-success col-md-10 col-md-offset-2">Submit</button>                
+            </div>
+                       
         </form>        
-
-        <a href="uploads/Basic_English_Usage_[Oxford].pdf">PDF file</a>
-
-        <a href="uploads/test.docx">docx file</a>
-
-
+        
         @if(count($errors)>0)
             <div class="alert alert-danger">
                 <ul>
