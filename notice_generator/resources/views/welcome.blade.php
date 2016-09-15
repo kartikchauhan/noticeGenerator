@@ -1,16 +1,37 @@
 @extends('student.master-student')
 
-@section('script')
+@section('stylesheets')
 
     <link href="../resources/assets/css/student-style.css" rel="stylesheet" />
+
+@endsection
+
+@section('scripts')
+
+    <script src="../resources/assets/js/ajax-filter-departments.js" type="text/javascript"></script>
     
 @endsection
 
 @section('content')
 
-<div class="container fluid">
+<div class="container">
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label for="departments">Select Department</label>
+            <select class="form-control" id="departments" name="departments">
+                <option value="" disabled selected style="display:none">Department</option>
+                <option value="1">CS</option>
+                <option value="2">Director</option>
+                <option value="3">T&P</option>
+                <option value="4">Mechanical</option>
+                <option value="5">IT</option>
+            </select>
+        </div>
+    </div>
+
     @foreach($noticesAndFilesArray as $noticesAndFiles)     
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8">
             @foreach($noticesAndFiles as $key => $value)
                 @if($key == 0)
                     <div class="notice-timestamps-container">
@@ -67,6 +88,8 @@
             </div>
         </div>  
     @endforeach         
+
+    <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token" />
 </div>
 
 <div class="modal fade" id="imageModal" tab-index="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">

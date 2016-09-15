@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'HomeController@homePage');
+Route::get('home', 'HomeController@homePage');
+Route::post('home', 'HomeController@categorizeNotices');
 
 
 Route::auth();

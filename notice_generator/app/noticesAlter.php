@@ -17,12 +17,12 @@ class noticesAlter extends Model
 
     public function Users()
     {
-        return $this->belongsTo('App\User', 'department_id');
+        return $this->belongsTo('App\User', 'department_id', 'id');
     }
 
 	public function Files()
 	{
-		return $this->hasMany('App\files', 'notice_id');
+		return $this->hasMany('App\Files', 'notice_id', 'id');
 	}
 
     public function Courses()

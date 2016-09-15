@@ -12,7 +12,7 @@ class AddDepartmentIdColumnToNoticesAlterTable extends Migration
      */
     public function up()
     {
-        Schema::table('noticesAlter', function ($table) {
+        Schema::table('noticesAlter', function ( Blueprint $table) {
             $table->integer('department_id')->unsigned()->nullable();
             $table->foreign('department_id')->references('id')->on('users')->onDelete('cascade');
         });

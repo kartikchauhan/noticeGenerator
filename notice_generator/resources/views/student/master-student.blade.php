@@ -17,7 +17,7 @@
     
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
 
-    @yield('script')
+    @yield('stylesheets')
     
     <style>
         body {
@@ -38,6 +38,9 @@
      --><!-- 
      <script src="../resources/assets/js/last-notice-details.js" type="text/javascript"></script>
     -->
+
+    @yield('scripts')
+
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">

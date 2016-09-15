@@ -32,7 +32,7 @@ function sendData(request)
 {
 	$.ajax({
 		'type': 'post',
-		'url': 'home',
+		'url': 'admin',
 		'data': request
 	})
 	.done(function(response){

@@ -92,43 +92,6 @@
 
     </div>
 
-    <div class="jumbotron col-md-3 col-md-offset-1">        
-
-        <h4>Last Notice Details</h4>
-
-        <h5>Subject- {{ $last_notice->notice_subject }}</h5>
-
-        <select id="last_notice_courses" multiple="multiple" name="last_notice_courses[]" class="last_notice_details_courses">
-            @foreach($courses_for_last_notice as $courses)
-                <option value="{{ $courses->id }}">{{ $courses->course }}</option>
-            @endforeach
-        </select> 
-
-        <select id="last_notice_branches" multiple="multiple" name="last_notice_branches[]" class="last_notice_details_branches">
-            @foreach($branches_for_last_notice as $branches)
-                <option value="{{ $branches->id }}">{{ $branches->branch }}</option>
-            @endforeach
-        </select> 
-
-        <select id="last_notice_years" multiple="multiple" name="last_notice_years[]" class="last_notice_details_years">
-            @foreach($years_for_last_notice as $years)
-                <option value="{{ $years->id }}">{{ $years->year }}</option>
-            @endforeach
-        </select> 
-
-        <select id="last_notice_sections" multiple="multiple" name="last_notice_sections[]" class="last_notice_details_sections">
-            @foreach($sections_for_last_notice as $sections)
-                <option value="{{ $sections->id }}">{{ $sections->section }}</option>
-            @endforeach
-        </select>       
-
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details" class="check_last_notice_details" /> Select last notice details
-            </label>        
-        </div>
-
-    </div>
 
 </div>
 <!-- 

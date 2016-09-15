@@ -26,6 +26,6 @@ class User extends Authenticatable
 
     public function noticesAlter()
     {
-        $this->hasMany('App\noticesAlter');
+       return $this->hasMany('App\noticesAlter', 'department_id', 'id');
     }
 }
