@@ -44,9 +44,15 @@ class HomeController extends Controller
 
  		try
  		{
- 			$departmentId = 6;
+ 			$departmentId = $request->departmentId;
  			$notices = noticesAlter::where('department_id', $departmentId)->orderBy('created_at', 'desc')->get();
 			$noticesAndFilesArray = [];
+
+			if($noticesAndFiles!=null)
+			{
+				$json['status'] = 2;
+				return response()->json($json);
+			}
 
 			foreach($notices as $notice)
 	 		{
@@ -57,12 +63,19 @@ class HomeController extends Controller
 	 			array_push($temp, $getFiles);
 
 	 			array_push($noticesAndFilesArray, $temp);
-	 		}
- 			
- 			$json['departmentId'] = $departmentId;
- 			$json['noticesAndFilesArray'] = $noticesAndFilesArray;
- 			$json['status'] = 1;
- 			return response()->json($json);
+	 		} 			
+
+ 			if($request->departmentID!=null )
+ 			{
+ 				$json['status'] = 1;
+ 				$json['noticesAndFilesArray'] = $noticesAndFilesArray; 			
+ 				return response()->json($json);
+ 			}
+ 			else
+ 			{
+ 				return view('welcome', compact(array('noticesAndFilesArray', 'noticesAndFiles')));	
+ 			}
+
 	 		// return view('welcome', compact(array('noticesAndFilesArray')));
  		}
  		catch(Exxception $e)

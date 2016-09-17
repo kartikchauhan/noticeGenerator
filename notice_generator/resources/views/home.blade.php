@@ -94,7 +94,7 @@
 
 
 </div>
-<!-- 
+
 <script type="text/javascript">
         $(function () {
             $('#courses, #branches, #years, #sections, #last_notice_courses, #last_notice_branches, #last_notice_years, #last_notice_sections').multiselect({
@@ -110,6 +110,6 @@
             // });
         });
 </script>
- -->
+
 @endsection
 

@@ -3,8 +3,8 @@ $(function(){
 	request._token = $('#_token').val();
 
 	$('#departments').on('change', function(){
-		request.value = $('#departments').val();
-		if(request.value != null)
+		request.departmentID = $('#departments').val();
+		if(request.departmentID != null)
 			sendData(request);
 	});
 
@@ -12,14 +12,24 @@ $(function(){
 
 function sendData(request)
 {
+	var _token = request._token;
+	console.log(request);
 	$.ajax({
 		'type' : 'post',
 		'url' : 'home',
 		'data' : request
 	})
 	.done(function(response)
-	{
-		console.log(response.noticesAndFilesArray);
-		console.log(response.departmentId);
+	{		
+		console.log(response.status);
+		$.ajax({
+			'type' : 'post',
+			'url' : 'home', 
+			'data': {noticesAndFiles:response.noticesAndFilesArray, _token:_token}
+		})
+		.done(function(response)
+		{
+			console.log(response.status);
+		});
 	});
 }

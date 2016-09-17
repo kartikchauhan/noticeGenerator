@@ -7,10 +7,15 @@
 @endsection
 
 @section('scripts')
-
+<!-- 
     <script src="../resources/assets/js/ajax-filter-departments.js" type="text/javascript"></script>
     
-@endsection
+-->
+    <script src="../resources/assets/js/filter-notice-by-department.js" type="text/javascript"></script>
+
+
+
+ @endsection
 
 @section('content')
 
@@ -21,19 +26,30 @@
             <label for="departments">Select Department</label>
             <select class="form-control" id="departments" name="departments">
                 <option value="" disabled selected style="display:none">Department</option>
-                <option value="1">CS</option>
+                <option value="6">CS</option>
                 <option value="2">Director</option>
                 <option value="3">T&P</option>
                 <option value="4">Mechanical</option>
                 <option value="5">IT</option>
+                <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token" />
             </select>
         </div>
     </div>
-
+<!-- 
+    <?php
+        if(isset($noticesAndFiles))
+        if($noticesAndFiles!=0)
+        {
+            $noticesAndFilesArray = $noticesAndFiles;
+            echo 'completed';        
+        }
+    ?>
+ -->
     @foreach($noticesAndFilesArray as $noticesAndFiles)     
-        <div class="col-md-8">
+        <div class="col-md-8  notice-container">
             @foreach($noticesAndFiles as $key => $value)
                 @if($key == 0)
+                    <input type="hidden" name="department-id" id="department-id" class="department-id" value="{{ $value->department_id }}" />
                     <div class="notice-timestamps-container">
                         <span class="glyphicon glyphicon-time glyphicon-clock">
                         <!-- changing date format of notice created_at to more readable form -->
@@ -88,8 +104,7 @@
             </div>
         </div>  
     @endforeach         
-
-    <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token" />
+    
 </div>
 
 <div class="modal fade" id="imageModal" tab-index="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
