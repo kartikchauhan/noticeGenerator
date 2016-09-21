@@ -30,51 +30,84 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
-    public function dashboard()
+    public function showLoginForm()
     {
-        $json = [];
-        try
-        {            
+        if($value = Auth::check())
+        {
             $currentUser = Auth::user();
             $currentUserId = $currentUser->id;
-            $courses = coursesAvailable::getCourses();
-            $branches = branchesAvailable::getBranches();
-            $years = yearsAvailable::getYears();
-            $sections = sectionsAvailable::getSections();
-
-            // retrieving the last notice details for the current department
-            $last_notice = noticesAlter::where('department_id', $currentUserId)->orderBy('created_at', 'desc')->first();
-
-            // $courses_for_last_notice = $last_notice->Courses()->get();   
-            // $branches_for_last_notice = $last_notice->Branches()->get();   
-            // $years_for_last_notice = $last_notice->Years()->get();   
-            // $sections_for_last_notice = $last_notice->sections()->get(); 
-        
-            return view('home', compact(array('courses', 'branches', 'years', 'sections')));    
+            return redirect('/admin/dashboard');
         }
-        catch(Exception $e)
-        {
-            return ("something went wrong");
-        }
-        
+        return view('auth.login');
     }
+    
+    public function login(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+        if(Auth::attempt(array('email'=>$email, 'password'=>$password)))
+        {                        
+            return redirect('/admin/dashboard');
+        }
+    
+        return redirect()->back()->withInput();    
+    }
+
+    public function dashboard()
+    {        
+        $currentUser = Auth::user();
+        $currentUserId = $currentUser->id;
+        $courses = coursesAvailable::getCourses();
+        $branches = branchesAvailable::getBranches();
+        $years = yearsAvailable::getYears();
+        $sections = sectionsAvailable::getSections();
+
+        // retrieving the last notice details for the current department
+        $last_notice = noticesAlter::where('department_id', $currentUserId)->orderBy('created_at', 'desc')->first();
+
+        // $courses_for_last_notice = $last_notice->Courses()->get();   
+        // $branches_for_last_notice = $last_notice->Branches()->get();   
+        // $years_for_last_notice = $last_notice->Years()->get();   
+        // $sections_for_last_notice = $last_notice->sections()->get(); 
+    
+        return view('home', compact(array('courses', 'branches', 'years', 'sections')));
+    }
+
+    // public function dashboard()
+    // {
+    //     $json = [];
+    //     try
+    //     {   
+
+    //         $currentUser = Auth::user();
+    //         $currentUserId = $currentUser->id;
+    //         $courses = coursesAvailable::getCourses();
+    //         $branches = branchesAvailable::getBranches();
+    //         $years = yearsAvailable::getYears();
+    //         $sections = sectionsAvailable::getSections();
+
+    //         // retrieving the last notice details for the current department
+    //         $last_notice = noticesAlter::where('department_id', $currentUserId)->orderBy('created_at', 'desc')->first();
+
+    //         // $courses_for_last_notice = $last_notice->Courses()->get();   
+    //         // $branches_for_last_notice = $last_notice->Branches()->get();   
+    //         // $years_for_last_notice = $last_notice->Years()->get();   
+    //         // $sections_for_last_notice = $last_notice->sections()->get(); 
+        
+    //         return view('home', compact(array('courses', 'branches', 'years', 'sections')));    
+    //     }
+    //     catch(Exception $e)
+    //     {
+    //         return ("something went wrong");
+    //     }
+        
+    // }
             // code for retrieving courses starts fromm here
                 //getting the last 3 records from the database
                                 // $last_three_notices = noticesAlter::orderBy('created_at', 'desc')->select('id')->take(3)->get(); 
@@ -219,6 +252,12 @@ class AdminController extends Controller
 
         return redirect()->back()->witherrors("notice added successfully"); // witherrors is just for showing a message at the same page
 
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('home');
     }
 
 

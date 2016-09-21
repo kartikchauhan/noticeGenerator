@@ -18,10 +18,14 @@ Route::post('home', 'HomeController@categorizeNotices');
 Route::auth();
 
 // changing name of HomeController to AdminController
-
-Route::get('/admin', 'AdminController@dashboard');
+Route::get('/admin/login', 'AdminController@showLoginForm');
+Route::post('/admin/login', 'AdminController@login');
+Route::get('/admin/dashboard', 'AdminController@dashboard');
+// Route::get('/admin', 'AdminController@dashboard');
 Route::post('/admin', 'AdminController@categorizeNotice');
 Route::post('/save', 'AdminController@saveNotice');
+
+Route::get('/admin/logout', 'AdminController@logout');
 
 // code for multiAuth
 
@@ -44,9 +48,12 @@ Route::post('/save', 'AdminController@saveNotice');
 
 Route::get('/student/login', 'StudentController@showLoginForm');
 Route::post('/student/login', 'StudentController@login');
+Route::get('/student/dashboard', 'StudentController@dashboard');
 
 Route::get('/student/register', 'StudentController@showRegistrationForm');
 Route::post('/student/register', 'StudentController@register');
+
+Route::get('/student/logout', 'StudentController@logout');
 
 Route::get('search', 'SearchController@search');
 Route::post('search', 'SearchController@getNames');

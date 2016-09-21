@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use DB;
+
 class User extends Authenticatable
 {
     /**
@@ -27,5 +29,12 @@ class User extends Authenticatable
     public function noticesAlter()
     {
        return $this->hasMany('App\noticesAlter', 'department_id', 'id');
+    }
+
+    public static function getStudentRecord($student_no)
+    {
+        return DB::table('users')
+                ->where('student_no', $student_no)
+                ->first();
     }
 }
