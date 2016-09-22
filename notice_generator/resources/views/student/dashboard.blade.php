@@ -1,6 +1,6 @@
 @extends('student.master-student')
 
-@section('script')
+@section('stylesheets')
 
 	<link href="../../resources/assets/css/student-style.css" rel="stylesheet" />
 	

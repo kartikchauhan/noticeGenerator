@@ -56,31 +56,45 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     Digital Notice
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
+                <!-- <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
-                </ul>
+                </ul> -->
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/student/login') }}">Login</a></li>
-                        <li><a href="{{ url('/student/register') }}">Register</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/admin/login') }}"><i class="fa fa-btn glyphicon glyphicon-user"></i>Admin</a></li>
+                                <li><a href="{{ url('/student/login') }}"><i class="fa fa-btn glyphicon glyphicon-user"></i>Student</a></li>
+                            </ul>
+                        </li>
+                        <!-- <li><a href="{{ url('/student/login') }}">Login</a></li> -->
+                        <li><a href="{{ url('/student/register') }}">Sign Up</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/student/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                @if(Auth::user()->is_admin==1) 
+                                    <li>admin</li>                           
+                                    <li><a href="{{ url('/admin/login') }}"><i class="fa fa-btn glyphicon glyphicon-user"></i>Profile</a></li>
+                                    <li><a href="{{ url('/admin/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                @elseif(Auth::user()->is_admin==0)
+                                    <li>student</li>
+                                    <li><a href="{{ url('/student/login') }}"><i class="fa fa-btn glyphicon glyphicon-user"></i>Profile</a></li>
+                                    <li><a href="{{ url('/student/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                @endif
                             </ul>
                         </li>
                     @endif

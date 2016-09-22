@@ -26,6 +26,9 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Requests\AuthenticateAdmin;
+
 // use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
@@ -47,7 +50,7 @@ class AdminController extends Controller
         return view('auth.login');
     }
     
-    public function login(Request $request)
+    public function login(AuthenticateAdmin $request)
     {
         $email = $request->email;
         $password = $request->password;
@@ -60,23 +63,44 @@ class AdminController extends Controller
     }
 
     public function dashboard()
-    {        
-        $currentUser = Auth::user();
-        $currentUserId = $currentUser->id;
-        $courses = coursesAvailable::getCourses();
-        $branches = branchesAvailable::getBranches();
-        $years = yearsAvailable::getYears();
-        $sections = sectionsAvailable::getSections();
+    {      
+        try
+        {
+            if(Auth::check())
+            {
+                if(Auth::user()->is_admin==1)
+                {
+                    $currentUser = Auth::user();
+                    $currentUserId = $currentUser->id;
+                    $courses = coursesAvailable::getCourses();
+                    $branches = branchesAvailable::getBranches();
+                    $years = yearsAvailable::getYears();
+                    $sections = sectionsAvailable::getSections();
 
-        // retrieving the last notice details for the current department
-        $last_notice = noticesAlter::where('department_id', $currentUserId)->orderBy('created_at', 'desc')->first();
+                    // retrieving the last notice details for the current department
+                    $last_notice = noticesAlter::where('department_id', $currentUserId)->orderBy('created_at', 'desc')->first();
 
-        // $courses_for_last_notice = $last_notice->Courses()->get();   
-        // $branches_for_last_notice = $last_notice->Branches()->get();   
-        // $years_for_last_notice = $last_notice->Years()->get();   
-        // $sections_for_last_notice = $last_notice->sections()->get(); 
-    
-        return view('home', compact(array('courses', 'branches', 'years', 'sections')));
+                    // $courses_for_last_notice = $last_notice->Courses()->get();   
+                    // $branches_for_last_notice = $last_notice->Branches()->get();   
+                    // $years_for_last_notice = $last_notice->Years()->get();   
+                    // $sections_for_last_notice = $last_notice->sections()->get(); 
+                
+                    return view('home', compact(array('courses', 'branches', 'years', 'sections')));                                            
+                }
+                else
+                {                    
+                    return redirect('admin/logout');
+                }
+            }
+            else
+            {
+                return redirect('/admin/login');
+            }
+        } 
+        catch(Exception $e) 
+        {
+            return redirect()->back()->withErrors('something went wrong');
+        }
     }
 
     // public function dashboard()
