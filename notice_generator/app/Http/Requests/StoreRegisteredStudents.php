@@ -25,8 +25,8 @@ class StoreRegisteredStudents extends Request
     {
         return [
             'name' => 'required',
-            'student_no' => 'required|unique:students|max:8',
-            'email' => 'required|email|max:255|unique:students',
+            'student_no' => 'required|unique:users|max:8',
+            'email' => 'required|email|max:255|unique:users',
             'course' => 'required',
             'branch' => 'required',
             'year' => 'required',

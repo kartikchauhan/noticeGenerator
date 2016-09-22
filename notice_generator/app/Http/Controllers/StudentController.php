@@ -187,7 +187,7 @@ class StudentController extends Controller
     	$json = [];
     	try
     	{
-    		$student = new Student();
+    		$student = new User();
 	    	$student->name = $request->name;
 	    	$student->student_no = $request->student_no;
 	    	$student->email = $request->email;
@@ -195,7 +195,8 @@ class StudentController extends Controller
 	    	$student->branch = $request->branch;
 	    	$student->year = $request->year;
 	    	$student->section = $request->section;
-	    	$student->password = $request->password; // storing text in plain form because bcrypt was encrypting password with new value every time
+	    	$student->password = bcrypt($request->password); // storing text in plain form because bcrypt was encrypting password with new value every time
+            $student->is_admin = 0;            
 	    	$student->save();	    	
 	    	return redirect('student/login');
     	}

@@ -28,7 +28,7 @@
                         <!-- Code starts from here -->
 
                         <div class="form-group{{ $errors->has('student_no') ? ' has-error' : '' }}">
-                            <label for="student_no" class="col-md-4 control-label">student_no</label>
+                            <label for="student_no" class="col-md-4 control-label">Student No.</label>
 
                             <div class="col-md-6">
                                 <input id="student_no" type="text" class="form-control" name="student_no" value="{{ old('student_no') }}">
@@ -43,7 +43,7 @@
                         <!-- Code ends here -->
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <label for="email" class="col-md-4 control-label">E-Mail</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -58,43 +58,77 @@
 
                         <!-- code before multiAuth -->
 
-                        <div class="row">                        
-                            <div class="col-md-2 col-md-offset-2">
-                                <select name="course" id="course">
+                        <div class="form-group{{ $errors->has('course') ? ' has-error' : '' }}">
+                            <label for="course" class="col-md-4 control-label">Course</label>
+
+                            <div class="col-md-6">
+                                <select name="course" id="course" class="course">
                                     @foreach($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->course }}</option>
                                     @endforeach
                                 </select>
-                            </div>
 
-                            <div class="col-md-2">
-                                <select name="branch" id="branch">
+                                @if ($errors->has('course'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('course') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('branch') ? ' has-error' : '' }}">
+                            <label for="course" class="col-md-4 control-label">Branch</label>
+
+                            <div class="col-md-6">
+                                <select name="branch" id="branch" class="branch">
                                     @foreach($branches as $branch)
                                         <option value="{{ $branch->id }}">{{ $branch->branch }}</option>
                                     @endforeach
                                 </select>
-                            </div>
 
-                            <div class="col-md-2">
-                                <select name="year" id="year">
+                                @if ($errors->has('branch'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('branch') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
+                            <label for="year" class="col-md-4 control-label">Year</label>
+
+                            <div class="col-md-6">
+                                <select name="year" id="year" class="year">
                                     @foreach($years as $year)
                                         <option value="{{ $year->id }}">{{ $year->year }}</option>
                                     @endforeach
                                 </select>
-                            </div>
 
-                            <div class="col-md-2">
-                                <select name="section" id="section">
+                                @if ($errors->has('year'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('year') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('section') ? ' has-error' : '' }}">
+                            <label for="section" class="col-md-4 control-label">Section</label>
+
+                            <div class="col-md-6">
+                                <select name="section" id="section" class="section">
                                     @foreach($sections as $section)
                                         <option value="{{ $section->id }}">{{ $section->section }}</option>
                                     @endforeach
                                 </select>
+
+                                @if ($errors->has('section'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('section') }}</strong>
+                                    </span>
+                                @endif
                             </div>
-
-                        </div>
-
-                       
-                        
+                        </div>                       
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
@@ -126,7 +160,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" style="width:100%">
                                     <i class="fa fa-btn fa-user"></i> Register
                                 </button>
                             </div>
@@ -137,4 +171,14 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function(){
+        $('#course, #branch, #year, #section').multiselect({
+            buttonWidth: '100%',
+            enableCaseInsensitiveFiltering: true,  
+            nonSelectedText: 'Check an option!'          
+        });        
+    });
+</script>
 @endsection

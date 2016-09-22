@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\AuthenticateAdmin;
-
+ 
 // use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller

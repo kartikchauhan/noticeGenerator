@@ -86,12 +86,10 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                @if(Auth::user()->is_admin==1) 
-                                    <li>admin</li>                           
+                                @if(Auth::user()->is_admin==1)                                                             
                                     <li><a href="{{ url('/admin/login') }}"><i class="fa fa-btn glyphicon glyphicon-user"></i>Profile</a></li>
                                     <li><a href="{{ url('/admin/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                                @elseif(Auth::user()->is_admin==0)
-                                    <li>student</li>
+                                @elseif(Auth::user()->is_admin==0)                                    
                                     <li><a href="{{ url('/student/login') }}"><i class="fa fa-btn glyphicon glyphicon-user"></i>Profile</a></li>
                                     <li><a href="{{ url('/student/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                                 @endif
