@@ -16,8 +16,8 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="../resources/assets/css/custom.css" />
-    <link href="../resources/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../resources/assets/css/custom.css" />
+    <link href="../../resources/assets/css/style.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="../resources/assets/css/dropzone.css"> -->
     <style>
         body {
@@ -33,7 +33,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
     
-    <script src="../resources/assets/js/ajax-filters.js" type="text/javascript"></script>    
+    <script src="../../resources/assets/js/ajax-filters.js" type="text/javascript"></script>    
     
     <!-- 
     <script src="../resources/assets/js/send-notice.js" type="text/javascript"></script>    
@@ -41,7 +41,7 @@
     <!-- 
     <script src="../resources/assets/js/dropzone.js" type="text/javascript"></script>
      -->
-     <script src="../resources/assets/js/last-notice-details.js" type="text/javascript"></script>
+     <script src="../../resources/assets/js/last-notice-details.js" type="text/javascript"></script>
      <!-- 
      <script src="../resources/assets/js/jquery.knob.js"></script>
      <script src="../resources/assets/js/jquery.ui.widget.js"></script>
