@@ -4,9 +4,7 @@ $(function(){
 
 	$('#courses').on('change', function(){		
 		request.courses = $('#courses').val();
-		request.index = 1;
-		// request._token = $('#_token').val();
-		console.log(request._token);
+		request.index = 1;				
 		sendData(request);
 	});
 
