@@ -22,7 +22,7 @@ Route::get('/admin/login', 'AdminController@showLoginForm');
 Route::post('/admin/login', 'AdminController@login');
 Route::get('/admin/dashboard', 'AdminController@dashboard');
 // Route::get('/admin', 'AdminController@dashboard');
-Route::post('/admin', 'AdminController@categorizeNotice');
+Route::post('/admin/categorize', 'AdminController@categorizeNotice');
 Route::post('/save', 'AdminController@saveNotice');
 
 Route::get('/admin/logout', 'AdminController@logout');

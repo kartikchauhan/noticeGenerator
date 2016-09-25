@@ -79,7 +79,7 @@ class AdminController extends Controller
 
                     // retrieving the last notice details for the current department
                     $last_notice = noticesAlter::where('department_id', $currentUserId)->orderBy('created_at', 'desc')->first();
-
+                        
                     $courses_for_last_notice = $last_notice->Courses()->get();   
                     $branches_for_last_notice = $last_notice->Branches()->get();   
                     $years_for_last_notice = $last_notice->Years()->get();   
