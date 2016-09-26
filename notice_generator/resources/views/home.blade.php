@@ -51,20 +51,29 @@
                 </div>
             </div>
 
+            <div class="col-md-10 col-md-offset-2">
+                <div id="drop">         
+                    <div class="msg-drop">
+                        <span class="glyphicon glyphicon-cloud-upload cloud"></span>
+                        Drop files here or click to <span id="browse">browse</span>.
+                    </div>
+                    <input id="fileBox" type="file"/>    
+                </div>
+            </div>
             <!-- <div id="upload">
                 <div id="drop">Drop Here
                 <a>Browse</a>
-                <input type="file" id="file" class="file" name="file[]" multiple  />
+                <input type="file" id="file" class="file" name="file" multiple  />
                 </div>
             <ul>
                 
             </ul>
             </div> -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <div class="col-md-2 col-md-offset-5">
                     <input type="file" name="files[]" id="file" class="file" multiple />                
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="additional-details">Additional Data</label>

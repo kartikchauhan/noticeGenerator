@@ -18,7 +18,7 @@
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="../../resources/assets/css/custom.css" />
     <link href="../../resources/assets/css/style.css" rel="stylesheet" />
-    <!-- <link rel="stylesheet" href="../resources/assets/css/dropzone.css"> -->
+    <link rel="stylesheet" href="../../resources/assets/css/file-upload.css">
     <style>
         body {
             font-family: 'Lato';
@@ -38,16 +38,11 @@
     <!-- 
     <script src="../resources/assets/js/send-notice.js" type="text/javascript"></script>    
      -->
-    <!-- 
-    <script src="../resources/assets/js/dropzone.js" type="text/javascript"></script>
-     -->
-     <script src="../../resources/assets/js/last-notice-details.js" type="text/javascript"></script>
-     <!-- 
-     <script src="../resources/assets/js/jquery.knob.js"></script>
-     <script src="../resources/assets/js/jquery.ui.widget.js"></script>
-     <script src="../resources/assets/js/jquery.fileupload.js"></script>
-     <script src="../resources/assets/js/script.js"></script>
-      -->
+    
+    <script src="../../resources/assets/js/file-upload.js" type="text/javascript"></script>
+    
+     <script src="../../resources/assets/js/last-notice-details.js" type="text/javascript"></script>     
+     
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">
