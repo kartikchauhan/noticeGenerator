@@ -9,9 +9,11 @@ $(function(){
 	});
 
 	$('#branches').on('change', function(){
-		if($('#courses').val()==null)
+		if($('#courses').val()==null) // checking whether user has selected any course or not before selecting a branch
 		{	
-			alert('select a course first');		
+			alert('Please select a course first');
+			var selected_branch = $('#branches').val();
+			$('#branches').multiselect('deselect', selected_branch); // desect the branch user selected before selecting a course
 
 		}
 		else
@@ -20,11 +22,31 @@ $(function(){
 			request.branches = $('#branches').val();
 			sendData(request);
 		}
-
 	});
 
-});
+	$('#years').on('change', function(){
+		if($('#courses').val()==null)
+		{
+			alert('Please select a course first');
+			var selected_year = $('#years').val();
+			$('#years').multiselect('deselect', selected_year);
+		}
+	});
 
+	$('#sections').on('change', function(){
+		var selected_section = $('#sections').val();
+		if($('#branches').val()==null)
+		{
+			alert('Please select a branch first');
+			$('#sections').multiselect('deselect', selected_section);
+		}
+		else if($('#years').val()==null)
+		{
+			alert('Please select a year first');			
+			$('#sections').multiselect('deselect', selected_section);
+		}
+	});
+});
 
 function sendData(request)
 {
@@ -47,26 +69,21 @@ function sendData(request)
 
 				allValues[0] = response.branches;
 				allValues[1] = response.years;				
-
 			}			
 			else if(responseCategory == 'sections')
 			{
 				category[0] = $('#sections');
-
 				allValues[0] = response.sections;
 			}
 			console.log(allValues[0]);
 			console.log(allValues[1]);
-
 			filter(category, allValues); // calling filter function for filtering out results
 		}
 		else
 		{
 			console.log('did not repond');
-		}
-		
+		}		
 	});
-
 }
 
 function filter(category, allValues)
