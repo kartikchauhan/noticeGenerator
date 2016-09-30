@@ -34,6 +34,8 @@ if (window.FileReader) {
 
             var dt = e.dataTransfer;
             var files = dt.files;
+            // $('input[type=file')[0].files = files;
+            // console.log($('input[type=file')[0].files);
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var reader = new FileReader();
@@ -84,6 +86,10 @@ if (window.FileReader) {
                     
                 }.bindToEventHandler(file));
             }
+            console.log(files);
+            $('input[type=file]')[0].files = files;
+            console.log($('input[type=file]')[0].files);
+
             return false;
         });
         Function.prototype.bindToEventHandler = function bindToEventHandler() {
@@ -97,6 +103,7 @@ if (window.FileReader) {
             }
         };
     });
+                
 } else {
     document.getElementById('status').innerHTML = 'Your browser does not support the HTML5 FileReader.';
 }

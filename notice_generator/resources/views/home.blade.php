@@ -55,11 +55,12 @@
                 <div id="drop">         
                     <div class="msg-drop">
                         <span class="glyphicon glyphicon-cloud-upload cloud"></span>
-                        Drop files here or click to <span id="browse">browse</span>.
-                    </div>
-                    <input id="fileBox" type="file"/>    
+                        Drop files here or click to <span id="browse">browse</span>
+                    </div>                    
                 </div>
+                <ul id="fileList"></ul>
             </div>
+            <input type="file" id="file" name="files[]" class="file" multiple />                     
             <!-- <div id="upload">
                 <div id="drop">Drop Here
                 <a>Browse</a>
@@ -67,7 +68,7 @@
                 </div>
             <ul>
                 
-            </ul>
+                </ul>
             </div> -->
             <!-- <div class="form-group">
                 <div class="col-md-2 col-md-offset-5">
@@ -102,38 +103,47 @@
     </div>
 
     <div class="jumbotron col-md-3 col-md-offset-1">
-        <h4>Last Notice Details</h4>        
 
-        <select id="last_notice_courses" class="last_notice_courses" multiple="multiple" name="last_notice_courses[]">
-            @foreach($courses_for_last_notice as $courses)
-                <option value="{{ $courses->id }}">{{ $courses->course }}</option>
-            @endforeach
-        </select> 
+        @if($last_notice!=null)
 
-        <select id="last_notice_branches" class="last_notice_branches" multiple="multiple" name="last_notice_branches[]">
-            @foreach($branches_for_last_notice as $branches)
-                <option value="{{ $branches->id }}">{{ $branches->branch }}</option>
-            @endforeach
-        </select> 
+            <h4>Last Notice Details</h4>        
 
-        <select id="last_notice_years" class="last_notice_years" multiple="multiple" name="last_notice_years[]">
-            @foreach($years_for_last_notice as $years)
-                <option value="{{ $years->id }}">{{ $years->year }}</option>
-            @endforeach
-        </select> 
+            <select id="last_notice_courses" class="last_notice_courses" multiple="multiple" name="last_notice_courses[]">
+                @foreach($courses_for_last_notice as $courses)
+                    <option value="{{ $courses->id }}">{{ $courses->course }}</option>
+                @endforeach
+            </select> 
 
-        <select id="last_notice_sections" class="last_notice_sections" multiple="multiple" name="last_notice_sections[]">
-            @foreach($sections_for_last_notice as $sections)
-                <option value="{{ $sections->id }}">{{ $sections->section }}</option>
-            @endforeach
-        </select>       
+            <select id="last_notice_branches" class="last_notice_branches" multiple="multiple" name="last_notice_branches[]">
+                @foreach($branches_for_last_notice as $branches)
+                    <option value="{{ $branches->id }}">{{ $branches->branch }}</option>
+                @endforeach
+            </select> 
 
-        <div class="form-group">
-            <label for="check_last_notice_details">Select last notice categories</label>
-            <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details">
-        </label>
+            <select id="last_notice_years" class="last_notice_years" multiple="multiple" name="last_notice_years[]">
+                @foreach($years_for_last_notice as $years)
+                    <option value="{{ $years->id }}">{{ $years->year }}</option>
+                @endforeach
+            </select> 
+
+            <select id="last_notice_sections" class="last_notice_sections" multiple="multiple" name="last_notice_sections[]">
+                @foreach($sections_for_last_notice as $sections)
+                    <option value="{{ $sections->id }}">{{ $sections->section }}</option>
+                @endforeach
+            </select>       
+
+            <div class="form-group">
+                <label for="check_last_notice_details">Select last notice categories</label>
+                <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details">
+            </label>
+
+        @else
+
+            <h4>Sorry, you haven't added any notice yet</h4>
+        
+        @endif
+
     </div>
-
 </div>
 
 <script type="text/javascript">

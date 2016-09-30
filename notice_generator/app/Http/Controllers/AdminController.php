@@ -75,17 +75,24 @@ class AdminController extends Controller
                     $courses = coursesAvailable::getCourses();
                     $branches = branchesAvailable::getBranches();
                     $years = yearsAvailable::getYears();
-                    $sections = sectionsAvailable::getSections();
+                    $sections = sectionsAvailable::getSections();                    
 
                     // retrieving the last notice details for the current department
-                    $last_notice = noticesAlter::where('department_id', $currentUserId)->orderBy('created_at', 'desc')->first();
-                        
-                    $courses_for_last_notice = $last_notice->Courses()->get();   
-                    $branches_for_last_notice = $last_notice->Branches()->get();   
-                    $years_for_last_notice = $last_notice->Years()->get();   
-                    $sections_for_last_notice = $last_notice->sections()->get(); 
-                
-                    return view('home', compact(array('courses', 'branches', 'years', 'sections', 'courses_for_last_notice', 'branches_for_last_notice', 'years_for_last_notice', 'sections_for_last_notice')));                                            
+                    $last_notice = noticesAlter::where('department_id', $currentUserId)->first();
+                    if($last_notice != null)
+                    {
+                        $courses_for_last_notice = $last_notice->Courses()->get();   
+                        $branches_for_last_notice = $last_notice->Branches()->get();   
+                        $years_for_last_notice = $last_notice->Years()->get();   
+                        $sections_for_last_notice = $last_notice->sections()->get(); 
+                    
+                        return view('home', compact(array('courses', 'branches', 'years', 'sections', 'last_notice', 'courses_for_last_notice', 'branches_for_last_notice', 'years_for_last_notice', 'sections_for_last_notice')));                                            
+                    }
+                    else
+                    {
+                        return view('home', compact(array('courses', 'branches', 'years', 'sections', 'last_notice')));
+                    }
+                    
                 }
                 else
                 {                    
@@ -257,7 +264,7 @@ class AdminController extends Controller
             $addSection = sectionsAvailable::find($sections);
             $notice->sections()->attach($sections);
 
-            $files = Input::file('files');
+            $files = Input::file('files');            
 
             foreach($files as $file)
             {

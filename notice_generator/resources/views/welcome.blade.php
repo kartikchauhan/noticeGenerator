@@ -29,7 +29,7 @@
             <select class="form-control" id="departments" name="departments">
                 <option value="" disabled selected style="display:none">Department</option>
                 <option value="6">CS</option>
-                <option value="2">Director</option>
+                <option value="14">Director</option>
                 <option value="3">T&P</option>
                 <option value="4">Mechanical</option>
                 <option value="5">IT</option>

@@ -67,9 +67,7 @@ body{
   -webkit-transition: width 1.5s ease-in-out;
   transition: width 1.5s ease-in-out;
 }*/
-#fileBox{
-    display:none;
-}
+
 .files-container
 {
   display: inline;
