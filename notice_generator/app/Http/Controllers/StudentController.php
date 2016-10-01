@@ -44,8 +44,9 @@ class StudentController extends Controller
         try
         {
             $student_no = $request->student_no;
-            $password = $request->password;        
-            if(Auth::attempt(array('student_no'=>$student_no, 'password'=>$password)))
+            $password = $request->password;                    
+            $rememberMe = $request->remember;            
+            if(Auth::attempt(array('student_no'=>$student_no, 'password'=>$password), $rememberMe))
             {
                 return redirect('/student/dashboard');
             }   
