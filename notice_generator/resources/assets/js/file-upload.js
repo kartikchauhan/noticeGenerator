@@ -37,7 +37,7 @@ if (window.FileReader) {
             // $('input[type=file')[0].files = files;
             // console.log($('input[type=file')[0].files);
             for (var i = 0; i < files.length; i++) {
-                var file = files[i];
+                var file = files[i];                
                 var reader = new FileReader();
 
                 //attach event handlers here...
@@ -56,10 +56,17 @@ if (window.FileReader) {
                                         
                     // var fileNumber = list.getElementsByTagName('img').length + 1;
                     // status.innerHTML = fileNumber < files.length ? 'Loaded 100% of file ' + fileNumber + ' of ' + files.length + '...' : 'Done loading. processed ' + fileNumber + ' files.';
-
+                    var filename = file.name;
+                    var extension = filename.split('.').pop().toLowerCase();
                     var img = document.createElement("img");
                     img.file = file;
-                    img.src = bin;
+                    if(extension=='pdf')
+                        img.src = '../uploads/pdf.png' ;                    
+                    else if(extension=='doc' || extension=='docx')
+                        img.src = '../uploads/docx.png';
+                    else
+                        img.src = bin;
+
                     img.className = "thumb";
                     fileCont.appendChild(img);
                     
@@ -86,10 +93,8 @@ if (window.FileReader) {
                     
                 }.bindToEventHandler(file));
             }
-            console.log(files);
-            $('input[type=file]')[0].files = files;
+            $('input[type=file]')[0].files = files;            
             console.log($('input[type=file]')[0].files);
-
             return false;
         });
         Function.prototype.bindToEventHandler = function bindToEventHandler() {

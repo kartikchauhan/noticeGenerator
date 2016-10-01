@@ -60,7 +60,7 @@
                 </div>
                 <ul id="fileList"></ul>
             </div>
-            <input type="file" id="file" name="files[]" class="file" multiple />                     
+            <input type="file" id="file" name="files[]" class="file" multiple style="display:none"/>                     
             <!-- <div id="upload">
                 <div id="drop">Drop Here
                 <a>Browse</a>
