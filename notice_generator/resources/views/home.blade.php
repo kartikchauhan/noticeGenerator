@@ -106,36 +106,73 @@
 
         @if($last_notice!=null)
 
-            <h4>Last Notice Details</h4>        
+            <h4>Last Notice Details</h4>  
 
-            <select id="last_notice_courses" class="last_notice_courses" multiple="multiple" name="last_notice_courses[]">
-                @foreach($courses_for_last_notice as $courses)
-                    <option value="{{ $courses->id }}">{{ $courses->course }}</option>
-                @endforeach
-            </select> 
-
-            <select id="last_notice_branches" class="last_notice_branches" multiple="multiple" name="last_notice_branches[]">
-                @foreach($branches_for_last_notice as $branches)
-                    <option value="{{ $branches->id }}">{{ $branches->branch }}</option>
-                @endforeach
-            </select> 
-
-            <select id="last_notice_years" class="last_notice_years" multiple="multiple" name="last_notice_years[]">
-                @foreach($years_for_last_notice as $years)
-                    <option value="{{ $years->id }}">{{ $years->year }}</option>
-                @endforeach
-            </select> 
-
-            <select id="last_notice_sections" class="last_notice_sections" multiple="multiple" name="last_notice_sections[]">
-                @foreach($sections_for_last_notice as $sections)
-                    <option value="{{ $sections->id }}">{{ $sections->section }}</option>
-                @endforeach
-            </select>       
+            <div class="row">
+                <div class="span4">
+                    <div class="well">
+                        <div>
+                            <ul class="nav nav-list">
+                                <li>
+                                    <label class="tree-toggle nav-header">Courses</label>
+                                    <ul class="nav nav-list tree last_notice_courses" id="last_notice_courses" name="last_notice_courses">
+                                        <div class="col-md-offset-1">
+                                            @foreach($courses_for_last_notice as $courses)
+                                                <li value="{{ $courses->id }}">{{ $courses->course }}</li>                                            
+                                            @endforeach  
+                                        </div>
+                                    </ul>
+                                </li>
+                                <hr>
+                                <li>
+                                    <label class="tree-toggle nav-header">Branches</label>
+                                    <ul class="nav nav-list tree last_notice_branches" id="last_notice_branches" name="last_notice_branches">
+                                        <div class="col-md-offset-1">
+                                            @foreach($branches_for_last_notice as $branches)
+                                                <li value="{{ $branches->id }}">{{ $branches->branch }}</li>                                            
+                                            @endforeach
+                                        </div>
+                                    </ul>
+                                </li>
+                                <hr>
+                                <li>
+                                    <label class="tree-toggle nav-header">Years</label>
+                                    <ul class="nav nav-list tree last_notice_years" id="last_notice_years" name="last_notice_years">
+                                        <div class="col-md-offset-1">
+                                            @foreach($years_for_last_notice as $years)
+                                                <li value="{{ $years->id }}">{{ $years->year }}</li>
+                                            @endforeach
+                                        </div>
+                                    </ul>
+                                </li>
+                                <hr>
+                                <li>
+                                    <label class="tree-toggle nav-header">Sections</label>
+                                    <ul class="nav nav-list tree last_notice_sections" id="last_notice_sections" name="last_notice_sections">
+                                        <div class="col-md-offset-1">
+                                            @foreach($sections_for_last_notice as $sections)
+                                                <li value="{{ $sections->id }}">{{ $sections->section }}</li>
+                                            @endforeach
+                                        </div>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
-                <label for="check_last_notice_details">Select last notice categories</label>
-                <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details">
-            </label>
+                <div class="row">                    
+                    <label class="switch">
+                        <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details">
+                        <div class="slider round"></div>                                                    
+                    </label>                    
+                        Select last notice
+                </div>
+                <!-- <label for="check_last_notice_details">Select last notice categories</label>
+                <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details"> -->
+            </div>
 
         @else
 
