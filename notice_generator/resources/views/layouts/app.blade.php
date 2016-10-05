@@ -40,7 +40,6 @@
     <!-- 
     <script src="../../resources/assets/js/send-notice.js" type="text/javascript"></script>    
      -->
-    
     <script src="../../resources/assets/js/file-upload.js" type="text/javascript"></script>
     
      <script src="../../resources/assets/js/last-notice-details.js" type="text/javascript"></script>     

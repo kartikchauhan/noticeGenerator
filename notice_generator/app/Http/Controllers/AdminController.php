@@ -237,6 +237,24 @@ class AdminController extends Controller
     {
         try
         {
+            // $validator = Validator::make($request->all(), [
+            //     'courses' => 'required',
+            //     'branches' => 'required',
+            //     'years' => 'required',
+            //     'sections' => 'required',
+            //     'subject' => 'required',  
+            //     'files' => 'required|array|min:1'
+            //     ]);
+
+            //     if ($validator->fails())
+            //     {
+            //         $errors = $validator->errors();
+            //         $errors = json_decode($errors);
+            //         return response()->json([
+            //             'success' => false,
+            //             'message' => $errors,
+            //             ], 422);
+            //     }
             $currentUser = Auth::user();
 
             $addNotice = new noticesAlter();
