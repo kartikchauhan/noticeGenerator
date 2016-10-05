@@ -55,29 +55,18 @@
                 <div id="drop">         
                     <div class="msg-drop">
                         <span class="glyphicon glyphicon-cloud-upload cloud"></span>
-                        Drop files here or click to <span id="browse">browse</span>
+                        Drop files here or click to
+                        <div class="fileUpload btn btn-primary" id="fileUpload">
+                            <span>Browse</span>
+                        </div>
                     </div>                    
                 </div>
                 <ul id="fileList"></ul>
             </div>
-            <input type="file" id="file" name="files[]" class="file" multiple style="display:none"/>                     
-            <!-- <div id="upload">
-                <div id="drop">Drop Here
-                <a>Browse</a>
-                <input type="file" id="file" class="file" name="file" multiple  />
-                </div>
-            <ul>
-                
-                </ul>
-            </div> -->
-            <!-- <div class="form-group">
-                <div class="col-md-2 col-md-offset-5">
-                    <input type="file" name="files[]" id="file" class="file" multiple />                
-                </div>
-            </div> -->
-
+            <input type="file" id="file" name="files[]" class="file upload" multiple style="display:none" />
+            
             <div class="form-group">
-                <label class="control-label col-md-2" for="additional-details">Additional Data</label>
+                <label class="control-label col-md-2" for="additional-details">Additional Details<span style="color:gray"> (Optional)</span></label>
                 <div class="col-md-10">
                    <textarea class="form-control" rows="5" id="additional-details" name="additional_details" placeholder="Enter Any Additional Detail"></textarea>
                 </div>

@@ -23,7 +23,7 @@
 
 <div class="container">
 
-    <div class="col-md-2">
+    <div class="col-md-8 col-md-offset-2 select-department-container">
         <div class="form-group">
             <label for="departments">Select Department</label>
             <select class="form-control" id="departments" name="departments">
@@ -37,18 +37,9 @@
             </select>
         </div>
     </div>
-<!-- 
-    <?php
-        if(isset($noticesAndFiles))
-        if($noticesAndFiles!=0)
-        {
-            $noticesAndFilesArray = $noticesAndFiles;
-            echo 'completed';        
-        }
-    ?>
- -->
+
     @foreach($noticesAndFilesArray as $noticesAndFiles)     
-        <div class="col-md-8  notice-container">
+        <div class="col-md-8 col-md-offset-2 notice-container">
             @foreach($noticesAndFiles as $key => $value)
                 @if($key == 0)
                     <input type="hidden" name="department-id" id="department-id" class="department-id" value="{{ $value->department_id }}" />
