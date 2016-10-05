@@ -1,21 +1,15 @@
-
-
 @extends('student.master-student')
 
 @section('stylesheets')
 
     <link href="../resources/assets/css/student-style.css" rel="stylesheet" />
+    <link href="../resources/assets/css/date-picker.css" rel="stylesheet" />
 
 @endsection
 
 @section('scripts')
-<!-- 
-    <script src="../resources/assets/js/ajax-filter-departments.js" type="text/javascript"></script>
-    
--->
-    <script src="../resources/assets/js/filter-notice-by-department.js" type="text/javascript"></script>
 
-
+    <script src="../resources/assets/js/date-picker.js" type="text/javascript"></script>
 
  @endsection
 
@@ -23,7 +17,17 @@
 
 <div class="container">
 
-    <div class="col-md-8 col-md-offset-2 select-department-container">
+    <div class="col-md-3 col-md-offset-2 date-picker-container">
+        <div class="form-group">
+            <div class="date-picker">
+                <label for="date-picker">Select notice via Date</label>            
+                <input type="text" class="form-control" placeholder="Click here to select notices via Date" id="date-picker" name="date-picker">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </div>
+        </div>                
+    </div>
+
+    <div class="col-md-3 col-md-offset-2 select-department-container">
         <div class="form-group">
             <label for="departments">Select Department</label>
             <select class="form-control" id="departments" name="departments">
@@ -46,7 +50,9 @@
                     <div class="notice-timestamps-container">
                         <span class="glyphicon glyphicon-time glyphicon-clock">
                         <!-- changing date format of notice created_at to more readable form -->
-                            <div class="notice-timestamps">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('l jS \\of F Y h:i:s A') }}</div>                          
+                            <div class="notice-timestamps" data-id="{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('Y-m-d')}}">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('l jS \\of F Y h:i:s A') }}</div>
+                        <input type="hidden" value="{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('Y-m-d')}}" id="compare-date">
+                            
                         </span>
                     </div>
                 @endif
@@ -113,9 +119,35 @@
 
 <script type="text/javascript">
     $(function(){
+        $('#date-picker').datepicker({
+            format: "yyyy-mm-dd"
+        });
+
         $('.pop').on('click',function(){
             $('.imagepreview').attr('src', $(this).find('img').attr('src'));
             $('#imageModal').modal('show');
+        });
+
+        $('#departments').on('change', function(){
+            $('.notice-container').each(function(){
+                if($(this).find('.department-id').val() != $('#departments').val())
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
+        });
+
+        $('#date-picker').on('change', function(){            
+            var userDate = Date.parse($('#date-picker').val());
+            console.log(userDate);
+            var noticeDate;
+            $('.notice-container').each(function(){
+                noticeDate = Date.parse($(this).find('#compare-date').val());
+                if(noticeDate<userDate)
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
         });
     });
 </script>   

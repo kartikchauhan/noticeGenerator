@@ -51,3 +51,14 @@
 	margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.date-picker-container
+{
+	margin-top: 20px;
+    margin-bottom: 20px;	
+}
+
+.date-picker
+{
+	display: inline;
+}
