@@ -24,7 +24,7 @@ if (window.FileReader) {
         addEventHandler(drop, 'dragover', cancel);
         addEventHandler(drop, 'dragenter', cancel);
         
-        var files, file, reader, file, bin, fileCont, filename, extension, img, newFile ;        
+        var files;        
 
         $(':file').on('change', function (e){                    
             files = $(':file').prop("files");
@@ -64,43 +64,53 @@ if (window.FileReader) {
 
 function addFiles(e, files)
         {
+            var file, reader, file, bin, fileCont, filename, extension, img, newFile;
             for (var i = 0; i < files.length; i++)
             {
-                file = files[i];                
-                reader = new FileReader();
+                file = files[i];    
+                filename = file.name;                
+                extension = filename.split('.').pop().toLowerCase();
+                if(extension=='pdf' || extension=='jpeg' || extension=='jpg' || extension=='png' || extension=='doc' || extension=='docx')
+                {                    
+                    reader = new FileReader();
 
-                reader.readAsDataURL(file);
-                addEventHandler(reader, 'loadend', function (e, file) 
-                {
-                    if($('#drop').find('.msg-drop'))
+                    reader.readAsDataURL(file);
+                    addEventHandler(reader, 'loadend', function (e, file) 
                     {
-                      $('#drop').find('.msg-drop').remove();
-                    }
-                    bin = this.result;
-                    fileCont = document.createElement('div');
-                    fileCont.className = "files-container";
-                    document.getElementById('drop').appendChild(fileCont);
-                    
-                    filename = file.name;
-                    extension = filename.split('.').pop().toLowerCase();
-                    img = document.createElement("img");
-                    img.file = file;
-                    if(extension=='pdf')
-                        img.src = '../uploads/pdf.png';                    
-                    else if(extension=='doc' || extension=='docx')
-                        img.src = '../uploads/docx.png';
-                    else
-                        img.src = bin;
+                        if($('#drop').find('.msg-drop'))
+                        {
+                          $('#drop').find('.msg-drop').remove();
+                        }
+                        bin = this.result;
+                        fileCont = document.createElement('div');
+                        fileCont.className = "files-container";
+                        document.getElementById('drop').appendChild(fileCont);
+                        
+                        filename = file.name;
+                        extension = filename.split('.').pop().toLowerCase();
+                        img = document.createElement("img");
+                        img.file = file;
+                        if(extension=='pdf')
+                            img.src = '../uploads/pdf.png';                    
+                        else if(extension=='doc' || extension=='docx')
+                            img.src = '../uploads/docx.png';
+                        else
+                            img.src = bin;
 
-                    img.className = "thumb";
-                    fileCont.appendChild(img);
-                    
-                    newFile = document.createElement('div');
-                    newFile.innerHTML = file.name;
-                    newFile.className = "fileName";
-                    img.appendChild(newFile);
-                    
-                }.bindToEventHandler(file))     
+                        img.className = "thumb";
+                        fileCont.appendChild(img);
+                        
+                        newFile = document.createElement('div');
+                        newFile.innerHTML = file.name;
+                        newFile.className = "fileName";
+                        img.appendChild(newFile);
+                        
+                    }.bindToEventHandler(file))     
+                }
+                else
+                {                    
+                    toastr.warning('Files of formats pdf, jpg, png, doc, docx can only be uploaded'); 
+                }
             }
         }
 
