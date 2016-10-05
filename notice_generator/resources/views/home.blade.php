@@ -8,15 +8,15 @@
 
         <form class="form-horizontal" action="{{ URL('save') }}" file=true enctype="multipart/form-data" method="post" >
 
-             <div class="row">
-    
+             <div class="row">             
+
                 <div class="col-md-2">
                     <select id="courses" multiple="multiple" name="courses[]" class="courses">
                         @foreach($courses as $course)
                             <option value="{{ $course->id }}">{{ $course->course }}</option>
                         @endforeach        
                     </select>
-                </div>        
+                </div>                                 
 
                 <div class="col-md-2 col-md-offset-1">
                     <select id="branches" multiple="multiple" name="branches[]" class="branches">
@@ -47,7 +47,7 @@
             <div class="form-group" style="margin-top:20px">
                 <label class="control-label col-md-2" for="subject">Subject</label>
                 <div class="col-md-10">
-                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject">
+                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject" value="{{ old('subject') }}">
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2" for="additional-details">Additional Details<span style="color:gray"> (Optional)</span></label>
                 <div class="col-md-10">
-                   <textarea class="form-control" rows="5" id="additional-details" name="additional_details" placeholder="Enter Any Additional Detail"></textarea>
+                   <textarea class="form-control" rows="5" id="additional-details" name="additional_details" placeholder="Enter Any Additional Detail">{{ old('additional_details') }}</textarea>
                 </div>
             </div>            
             <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token" />
@@ -80,13 +80,18 @@
         </form>        
         
         @if(count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+            <?php
+                echo '<script type="text/javascript">';
+                echo 'toastr.options = {"positionClass": "toast-top-center", "closeButton": true}';                    
+                echo '</script>';
+            ?>
+            @foreach($errors->all() as $error)
+                <?php 
+                    echo '<script type="text/javascript">';
+                    echo 'toastr.error("'.$error.'");';                    
+                    echo '</script>';
+                ?>
+            @endforeach            
         @endif
 
     </div>
@@ -157,7 +162,7 @@
                         <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details">
                         <div class="slider round"></div>                                                    
                     </label>                    
-                        Select last notice
+                        <label data-toggle="tooltip" title="Toggle this to select last notice categories" for="check_last_notice_details" style="cursor:pointer">Select last notice Details</label>
                 </div>
                 <!-- <label for="check_last_notice_details">Select last notice categories</label>
                 <input type="checkbox" name="check_last_notice_details" id="check_last_notice_details"> -->
@@ -197,7 +202,9 @@
                 templates: {
                     ul: '<ul class="multiselect-container dropdown-menu sections-override"></ul>',
                 }
-            });        
+            }); 
+
+            toastr.options = {"positionClass": "toast-top-center", "closeButton": true};
         });        
 </script>
 

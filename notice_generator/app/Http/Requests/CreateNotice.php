@@ -6,6 +6,7 @@ use App\Http\Requests\Request;
 
 class CreateNotice extends Request
 {
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,7 +30,7 @@ class CreateNotice extends Request
             'years' => 'required',
             'sections' => 'required',
             'subject' => 'required',  
-            'files' => 'required|array|min:1',
+            'files' => 'required|array|min:1',            
         ];
 
         $files = $this->file('files');

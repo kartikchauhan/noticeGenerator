@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="../../resources/assets/css/custom.css" />
     <link href="../../resources/assets/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../resources/assets/css/file-upload.css">
+    <link rel="stylesheet" href="../../resources/assets/css/toastr.css">
+    
     <style>
         body {
             font-family: 'Lato';
@@ -34,7 +36,7 @@
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
     
     <script src="../../resources/assets/js/ajax-filters.js" type="text/javascript"></script>    
-    
+    <script src="../../resources/assets/js/toastr.js" type="text/javascript"></script>
     <!-- 
     <script src="../../resources/assets/js/send-notice.js" type="text/javascript"></script>    
      -->
