@@ -18,12 +18,10 @@
 <div class="container">
 
     <div class="col-md-3 col-md-offset-2 date-picker-container">
-        <div class="form-group">
-            <div class="date-picker">
-                <label for="date-picker">Select notice via Date</label>            
-                <input type="text" class="form-control" placeholder="Click here to select notices via Date" id="date-picker" name="date-picker">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </div>
+        <div class="form-group has-feedback">            
+            <label for="date-picker">Select notice via Date</label>                            
+            <input type="text" class="form-control" placeholder="Click to select notices via Date" id="date-picker" name="date-picker" style="cursor:pointer">
+            <i class="glyphicon glyphicon-calendar form-control-feedback"></i>            
         </div>                
     </div>
 
@@ -104,6 +102,7 @@
         </div>  
     @endforeach         
     
+    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
 </div>
 
 <div class="modal fade" id="imageModal" tab-index="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
@@ -149,6 +148,24 @@
                     $(this).show();
             });
         });
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+        
+        $('#back-to-top').tooltip('show');
     });
 </script>   
 
