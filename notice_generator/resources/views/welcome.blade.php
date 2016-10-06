@@ -10,6 +10,7 @@
 @section('scripts')
 
     <script src="../resources/assets/js/date-picker.js" type="text/javascript"></script>
+    <script src="../resources/assets/js/welcome-page.js" type="text/javascript"></script>
 
  @endsection
 
@@ -61,7 +62,7 @@
                     @if($key == 0)                      
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4">
-                                <h4>{{ $value->notice_subject }}</h4>
+                                <h4>{{ $value->notice_subject }}</h4>                                
                             </div>
                         </div>
                         <!-- fetching all the files in relation to the subject -->
@@ -115,58 +116,5 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function(){
-        $('#date-picker').datepicker({
-            format: "yyyy-mm-dd"
-        });
-
-        $('.pop').on('click',function(){
-            $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-            $('#imageModal').modal('show');
-        });
-
-        $('#departments').on('change', function(){
-            $('.notice-container').each(function(){
-                if($(this).find('.department-id').val() != $('#departments').val())
-                    $(this).hide();
-                else
-                    $(this).show();
-            });
-        });
-
-        $('#date-picker').on('change', function(){            
-            var userDate = Date.parse($('#date-picker').val());
-            console.log(userDate);
-            var noticeDate;
-            $('.notice-container').each(function(){
-                noticeDate = Date.parse($(this).find('#compare-date').val());
-                if(noticeDate<userDate)
-                    $(this).hide();
-                else
-                    $(this).show();
-            });
-        });
-
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 50) {
-                $('#back-to-top').fadeIn();
-            } else {
-                $('#back-to-top').fadeOut();
-            }
-        });
-        // scroll body to 0px on click
-        $('#back-to-top').click(function () {
-            $('#back-to-top').tooltip('hide');
-            $('body,html').animate({
-                scrollTop: 0
-            }, 800);
-            return false;
-        });
-        
-        $('#back-to-top').tooltip('show');
-    });
-</script>   
 
 @endsection
